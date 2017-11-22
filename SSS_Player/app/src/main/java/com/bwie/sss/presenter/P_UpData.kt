@@ -22,8 +22,13 @@ class P_UpData : BasePresenter<IView_Main>() {
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { upData : UpDataBean.UpData ->
-                    
-                    view?.setUpdata()
+                    if (versionCode < upData.versionName.toInt()){
+                        view?.setUpdata(upData)
+                    }
                 }
+    }
+
+    fun getProgressBar(context: Context){
+
     }
 }
