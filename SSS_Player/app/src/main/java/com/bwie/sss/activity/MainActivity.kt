@@ -2,22 +2,27 @@ package com.bwie.sss.activity
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.bwie.sss.R
+import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.FileInfo
 import com.bwie.sss.bean.FileInfoBean
 import com.bwie.sss.bean.UpDataBean
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.presenter.P_UpData
+import com.bwie.sss.service.PlayService
 import com.bwie.sss.view.IView_Main
+import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
-
-
+    val array=ArrayList<VideoBean.Video>()
+    var videoAdapter:VideoAdapter?=null
 
     override fun getLayout(): Int {
         return R.layout.activity_main
@@ -28,9 +33,12 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
     }
 
     override fun initData() {
-<<<<<<< HEAD
+
         EventBus.getDefault().register(this)
-        presenter?.getUpData(applicationContext)
+        recycler.layoutManager=LinearLayoutManager(this )
+
+       // presenter?.getUpData(applicationContext)
+        presenter?.getloadVideo(applicationContext)
     }
 
     override fun setUpdata(upData: UpDataBean.UpData) {
@@ -53,6 +61,13 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         alert.show()
     }
 
+    override fun setVideo(videoBean: VideoBean.Video) {
+       array.add(videoBean)
+
+        videoAdapter= VideoAdapter(this,videoBean)
+        recycler.adapter=videoAdapter
+        Log.i("video",videoBean.toString())
+    }
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
@@ -63,40 +78,8 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
 
     }
 }
-=======
-        /* recycler.adapter=*/
-        //  presenter?.getUpData(this)
-        presenter?.getloadVideo(this)
-    }
 
-    override fun setUpdata(upData: UpDataBean.UpData) {
 
-        val versionCode = packageManager.getPackageInfo(packageName, 0).versionCode
-        if (versionCode < upData.versionName.toInt()) {
-            var alert: AlertDialog
-            // val intent = Intent(this, PlayService::class.java)
-            alert = AlertDialog.Builder(this)
-                    .setMessage("有新的版本可以升级~")
-                    .setPositiveButton("立刻升级", DialogInterface.OnClickListener { dialogInterface, i ->
-                        //跳转服务
-                        intent.putExtra("apkUrl", upData.apkUrl)
-                        startService(intent)
-                    })
-                    .setNegativeButton("以后再说", DialogInterface.OnClickListener { dialogInterface, i ->
-                        presenter?.getloadVideo(applicationContext)
-                    })
-                    .create()
-            alert.show()
-            return
-        }
-        Log.i("124", "123")
-        presenter?.getloadVideo(applicationContext)
-    }
 
-    override fun setVideo(videoBean: VideoBean.Video) {
-        Log.i("124", "123")
-        Log.i("1", videoBean.toString())
-    }
 
-}
->>>>>>> c955cdcf4a316e0fcddb1859272c023a53e1b018
+

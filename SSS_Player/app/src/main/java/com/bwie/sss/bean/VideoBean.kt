@@ -8,19 +8,19 @@ class VideoBean {
 
 data class Video(
 		val issueList: List<Issue>,
-		val nextPageUrl: String, //http://baobab.kaiyanapp.com/api/v2/feed?date=1511139600000&num=2
-		val nextPublishTime: Long, //1511398800000
+		val nextPageUrl: String, //http://baobab.kaiyanapp.com/api/v2/feed?date=1511226000000&num=2
+		val nextPublishTime: Long, //1511485200000
 		val newestIssueType: String, //morning
 		val dialog: Any //null
 )
 
 data class Issue(
-		val releaseTime: Long, //1511312400000
+		val releaseTime: Long, //1511398800000
 		val type: String, //morning
-		val date: Long, //1511312400000
-		val publishTime: Long, //1511312400000
+		val date: Long, //1511398800000
+		val publishTime: Long, //1511398800000
 		val itemList: List<Item>,
-		val count: Int //6
+		val count: Int //5
 )
 
 data class Item(

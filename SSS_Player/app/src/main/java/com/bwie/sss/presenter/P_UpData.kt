@@ -21,22 +21,21 @@ class P_UpData : BasePresenter<IView_Main>() {
     var model : IModel_UpData = Model_UpData()
 
     fun getUpData(context: Context){
-        Log.i("xx","VideoPresenterlmp")
+
        var f: Flowable<UpDataBean.UpData> = model.getUpData(context)!!
                f?.subscribeOn(Schedulers.io())
                 ?.observeOn(Schedulers.newThread())
                 ?.subscribe { upData : UpDataBean.UpData ->
-
                     view?.setUpdata(upData)
                 }
     }
 
 
     fun getloadVideo(context: Context){
-      //  Log.i("xx","VideoPresenterlmp")
+        Log.i("xx","VideoPresenterlmp")
         var v=model?.getloadVideo(context, Api.VIDEO,true)
         v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video->
-            Log.e("123",bean.nextPageUrl)
+            Log.e("bean",bean.toString())
             view?.setVideo(bean)
            // view!!.setVideo(bean)
         }
