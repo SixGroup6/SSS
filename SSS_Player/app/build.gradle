@@ -55,9 +55,12 @@ dependencies {
 
     compile'org.greenrobot:greendao:3.0.0'
     compile'org.greenrobot:greendao-generator:3.0.0'
+<<<<<<< HEAD
 
     //recyclerview
     compile 'com.android.support:recyclerview-v7:23.1.1'
+=======
+>>>>>>> 656189282c598ec9887d2aab555cde7f5d860ad8
 }
 repositories {
     mavenCentral()
