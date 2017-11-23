@@ -26,7 +26,11 @@ class P_UpData : BasePresenter<IView_Main>() {
                f?.subscribeOn(Schedulers.io())
                 ?.observeOn(Schedulers.newThread())
                 ?.subscribe { upData : UpDataBean.UpData ->
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> e803ff3b274f03283a8d8d263604276e74375132
                     view?.setUpdata(upData)
                 }
     }
@@ -42,10 +46,21 @@ class P_UpData : BasePresenter<IView_Main>() {
         }
     }
 
+<<<<<<< HEAD
 
 
 
 
+=======
+=======
+                    if (versionCode < upData.versionName.toInt()){
+                        view?.setUpdata(upData)
+                    }
+                }
+    }
+
+>>>>>>> 656189282c598ec9887d2aab555cde7f5d860ad8
+>>>>>>> e803ff3b274f03283a8d8d263604276e74375132
     fun getProgressBar(context: Context){
 
     }
