@@ -23,10 +23,10 @@ class P_UpData : BasePresenter<IView_Main>() {
     fun getUpData(context: Context){
         Log.i("xx","VideoPresenterlmp")
        var f: Flowable<UpDataBean.UpData> = model.getUpData(context)!!
-
                f?.subscribeOn(Schedulers.io())
                 ?.observeOn(Schedulers.newThread())
                 ?.subscribe { upData : UpDataBean.UpData ->
+
                     view?.setUpdata(upData)
                 }
     }
@@ -41,6 +41,10 @@ class P_UpData : BasePresenter<IView_Main>() {
            // view!!.setVideo(bean)
         }
     }
+
+
+
+
 
     fun getProgressBar(context: Context){
 

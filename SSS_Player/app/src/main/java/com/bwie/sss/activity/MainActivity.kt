@@ -2,6 +2,7 @@ package com.bwie.sss.activity
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.util.Log
 import com.bwie.sss.R
 import com.bwie.sss.bean.UpDataBean
@@ -9,10 +10,16 @@ import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.view.IView_Main
 
+
+
 class MainActivity : BaseActivity<IView_Main,P_UpData>(),IView_Main {
+    override fun setVideo(videoBean:VideoBean.Video) {
+        Log.i("124", "123")
+        Log.i("1", videoBean.toString())
+    }
 
 
-    override fun getLayout(): Int {
+        override fun getLayout(): Int {
         return R.layout.activity_main
     }
 
@@ -48,8 +55,5 @@ class MainActivity : BaseActivity<IView_Main,P_UpData>(),IView_Main {
         Log.i("124","123")
         presenter?.getloadVideo(applicationContext)
     }
-    override fun setVideo(videoBean: VideoBean.Video) {
-        Log.i("124","123")
-        Log.i("1",videoBean.toString())
-    }
+
 }
