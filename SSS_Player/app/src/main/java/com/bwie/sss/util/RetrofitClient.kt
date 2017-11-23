@@ -5,7 +5,6 @@ import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -36,11 +35,11 @@ class RetrofitClient private constructor(context: Context,baseUrl:String){
         }
         //okhttp创建了
         okHttpClient = OkHttpClient.Builder()
-                .addNetworkInterceptor(
-                        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                //.addNetworkInterceptor(
+                       // HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache)
-                .addInterceptor(CacheInterceptor(context))
-                .addNetworkInterceptor(CacheInterceptor(context))
+            //    .addInterceptor(CacheInterceptor(context))
+                //.addNetworkInterceptor(CacheInterceptor(context))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build()

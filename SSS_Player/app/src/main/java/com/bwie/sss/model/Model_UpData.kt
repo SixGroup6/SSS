@@ -1,8 +1,10 @@
 package com.bwie.sss.model
 
 import android.content.Context
+import android.util.Log
 import com.bwie.sss.api.Api
 import com.bwie.sss.bean.UpDataBean
+import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.inter.ApiService
 import com.tt.lvruheng.eyepetizer.network.RetrofitClient
 import io.reactivex.Flowable
@@ -14,7 +16,20 @@ import io.reactivex.Flowable
  */
 class Model_UpData : IModel_UpData {
     override fun getUpData(context: Context): Flowable<UpDataBean.UpData>? {
-        val apiService = RetrofitClient.getInstance(context, Api.UP_DATA).create(ApiService::class.java)
+
+       val apiService = RetrofitClient.getInstance(context, Api.UP_DATA).create(ApiService::class.java)
         return apiService?.getUpDtad()
+    }
+    override fun getloadVideo(context: Context, url: String, isB: Boolean): Flowable<VideoBean.Video>? {
+        Log.i("xx","VideoModel")
+        val retrofitClient= RetrofitClient.getInstance(context, Api.VIDEO)
+        val apiService= retrofitClient.create(ApiService::class.java)
+        when(isB){
+            true ->return apiService?.getVideo()!!;//默认
+
+
+            false-> return apiService?.getVideo()!!;
+        }
+
     }
 }

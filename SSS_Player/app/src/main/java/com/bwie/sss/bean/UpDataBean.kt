@@ -6,7 +6,7 @@ package com.bwie.sss.bean
  * 3：@date 2017/11/22
  */
 class UpDataBean {
-    data class UpData(
+     class UpData(
             val apkUrl: String, //http://count.liqucn.com/d.php?id=339975&urlos=android&from_type=web
             val versionName: String //1.0.1
     )
