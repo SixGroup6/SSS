@@ -55,6 +55,8 @@ dependencies {
 
     compile'org.greenrobot:greendao:3.0.0'
     compile'org.greenrobot:greendao-generator:3.0.0'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 repositories {
     mavenCentral()
