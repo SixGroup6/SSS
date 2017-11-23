@@ -23,6 +23,8 @@ class MyApp :Application() {
     }
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        setDataBase()
     }
 
     fun getDataBase() : SQLiteDatabase{

@@ -14,7 +14,7 @@ interface ApiService {
     /*
        请求后台，版本更新
      */
-    @GET("o8web/UpDataServlet")
+    @GET("08web/UpDataServlet")
     fun getUpDtad():Flowable<UpDataBean.UpData>
     /*
      *获取Video页数据
