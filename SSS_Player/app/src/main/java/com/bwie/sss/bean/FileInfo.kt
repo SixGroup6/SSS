@@ -10,4 +10,8 @@ import org.greenrobot.greendao.annotation.Entity
 @Entity
 class FileInfo {
     var length : Int? = null
+
+    constructor(length: Int?) {
+        this.length = length
+    }
 }

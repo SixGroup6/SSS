@@ -58,8 +58,7 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
         }else{
             holder as ViewHoler
             holder.title.text=video.issueList[0].itemList[position].data.title
-
-            holder.title.text=video.issueList[0].itemList[position].data.title
+            
         }
     }
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
