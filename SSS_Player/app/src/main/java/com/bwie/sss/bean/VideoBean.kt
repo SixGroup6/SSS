@@ -20,7 +20,7 @@ data class Issue(
 		val date: Long, //1511398800000
 		val publishTime: Long, //1511398800000
 		val itemList: List<Item>,
-		val count: Int //5
+		val count: Int //7
 )
 
 data class Item(
@@ -41,7 +41,8 @@ data class Data(
 		val shade: Boolean, //false
 		val label: Any, //null
 		val labelList: Any, //null
-		val header: Any //null
+		val header: Any ,//null
+		val playUrl:String
 )
 }
 

@@ -1,6 +1,7 @@
 package com.bwie.sss.adapter
 
 import android.content.Context
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bwie.sss.R
 import com.bwie.sss.bean.VideoBean
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 
 /**
  * Created by 燕子 on 2017/11/23.
@@ -58,18 +60,20 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
         }else{
             holder as ViewHoler
             holder.title.text=video.issueList[0].itemList[position].data.title
-            
+            holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,video.issueList[0].itemList[position].data.title,true)
+           Log.i("v", video.issueList[0].itemList[position].data.playUrl+"  ")
+
         }
     }
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
-            var title:TextView=itemView!!.findViewById(R.id.vide_title)
-            var download:ImageView=itemView!!.findViewById(R.id.vide_download)
-        var video:ImageView=itemView!!.findViewById(R.id.vide_video)
-            var show: ImageView? =itemView!!.findViewById(R.id.vide_show)
+            var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
+            var download:ImageView= itemView!!.findViewById(R.id.vide_download) as ImageView
+             var videoplay: JCVideoPlayer = itemView!!.findViewById(R.id.vide_video) as JCVideoPlayer
+            var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
 
     }
     class ViewHolder2 (itemView: View?):RecyclerView.ViewHolder(itemView){
-        var Img:ImageView=itemView!!.findViewById(R.id.vide_im)
+        var Img:ImageView= itemView!!.findViewById(R.id.vide_im) as ImageView
     }
 
 
