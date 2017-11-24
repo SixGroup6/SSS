@@ -13,6 +13,7 @@ import com.bwie.sss.adapter.DownloadAdapter
 import com.bwie.sss.bean.VideoB
 import com.bwie.sss.util.ObjectSaveUtils
 import com.bwie.sss.util.SPUtils
+
 import kotlinx.android.synthetic.main.activity_cache.*
 import zlc.season.rxdownload2.RxDownload
 
