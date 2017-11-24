@@ -9,19 +9,16 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bwie.sss.R
-<<<<<<< HEAD
-=======
 import com.bwie.sss.adapter.DownloadAdapter
 import com.bwie.sss.bean.VideoB
 import com.bwie.sss.util.ObjectSaveUtils
 import com.bwie.sss.util.SPUtils
-
->>>>>>> f812f19ab1751a804bdbf865e1c2d845588bb13d
 import kotlinx.android.synthetic.main.activity_cache.*
 import zlc.season.rxdownload2.RxDownload
 
+
 class CacheActivity : AppCompatActivity() {
-/*    var mList = ArrayList<VideoB>()
+    var mList = ArrayList<VideoB>()
     lateinit var mAdapter: DownloadAdapter
     var mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -39,8 +36,8 @@ class CacheActivity : AppCompatActivity() {
             }
 
         }
-    }*/
-/*    override fun onCreate(savedInstanceState: Bundle?) {
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cache)
         setToolbar()
@@ -54,8 +51,7 @@ class CacheActivity : AppCompatActivity() {
         })
 
         recyclerView.adapter = mAdapter
-    }*/
-/*
+    }
     private fun addDialog(position: Int) {
         var builder = AlertDialog.Builder(this)
         var dialog = builder.create()
@@ -70,18 +66,17 @@ class CacheActivity : AppCompatActivity() {
         })
         builder.show()
     }
-*/
 
-/*    private fun deleteDownload(position: Int) {
+    private fun deleteDownload(position: Int) {
         RxDownload.getInstance(this@CacheActivity).deleteServiceDownload(mList[position].playUrl, true).subscribe()
         SPUtils.getInstance(this, "downloads").put(mList[position].playUrl.toString(), "")
         var count = position + 1
         ObjectSaveUtils.deleteFile("download$count", this)
         mList.removeAt(position)
         mAdapter.notifyItemRemoved(position)
-    }*/
+    }
 
- /*   private fun setToolbar() {
+    private fun setToolbar() {
         setSupportActionBar(toolbar)
         var bar = supportActionBar
         bar?.title = "我的缓存"
@@ -89,36 +84,36 @@ class CacheActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-    }*/
+    }
 
-    /*private class DataAsyncTask(handler: Handler, activity: CacheActivity) : AsyncTask<Void, Void, ArrayList<VideoB>>() {
-        var activity: CacheActivity = activity
-        var handler = handler
-        override fun doInBackground(vararg params: Void?): ArrayList<VideoB>? {
-            var list = ArrayList<VideoB>()
-            var count: Int = SPUtils.getInstance(activity, "downloads").getInt("count")
-            var i = 1
-            while (i.compareTo(count) <= 0) {
-                var bean: VideoB
-                if (ObjectSaveUtils.getValue(activity, "download$i") == null) {
-                    continue
-                } else {
-                    bean = ObjectSaveUtils.getValue(activity, "download$i") as VideoB
+           private class DataAsyncTask(handler: Handler, activity: CacheActivity) : AsyncTask<Void, Void, ArrayList<VideoB>>() {
+            var activity: CacheActivity = activity
+            var handler = handler
+            override fun doInBackground(vararg params: Void?): ArrayList<VideoB>? {
+                var list = ArrayList<VideoB>()
+                var count: Int = SPUtils.getInstance(activity, "downloads").getInt("count")
+                var i = 1
+                while (i.compareTo(count) <= 0) {
+                    var bean: VideoB
+                    if (ObjectSaveUtils.getValue(activity, "download$i") == null) {
+                        continue
+                    } else {
+                        bean = ObjectSaveUtils.getValue(activity, "download$i") as VideoB
+                    }
+                    list.add(bean)
+                    i++
                 }
-                list.add(bean)
-                i++
+                return list
             }
-            return list
-        }
 
-        override fun onPostExecute(result: ArrayList<VideoB>?) {
-            super.onPostExecute(result)
-            var message = handler.obtainMessage()
-            var bundle = Bundle()
-            bundle.putParcelableArrayList("beans", result)
-            message.data = bundle
-            handler.sendMessage(message)
-        }*/
+            override fun onPostExecute(result: ArrayList<VideoB>?) {
+                super.onPostExecute(result)
+                var message = handler.obtainMessage()
+                var bundle = Bundle()
+                bundle.putParcelableArrayList("beans", result)
+                message.data = bundle
+                handler.sendMessage(message)
+            }
 
-  //  }
+   }
 }
