@@ -9,14 +9,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bwie.sss.R
-<<<<<<< HEAD
-=======
 import com.bwie.sss.adapter.DownloadAdapter
 import com.bwie.sss.bean.VideoB
 import com.bwie.sss.util.ObjectSaveUtils
 import com.bwie.sss.util.SPUtils
-
->>>>>>> f812f19ab1751a804bdbf865e1c2d845588bb13d
 import kotlinx.android.synthetic.main.activity_cache.*
 import zlc.season.rxdownload2.RxDownload
 

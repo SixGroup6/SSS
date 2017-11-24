@@ -5,6 +5,7 @@ import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -13,14 +14,13 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by SSS on 2017/11/22.
  */
-class RetrofitClient private constructor(context: Context,baseUrl:String){
+class RetrofitClient private constructor(context: Context){
     var httpCacheDirectory : File? = null
     val mContext : Context = context
     var cache : Cache? = null
     var okHttpClient : OkHttpClient? = null
     var retrofit : Retrofit? = null
     val DEFAULT_TIMEOUT : Long = 20
-    val url = baseUrl
     init {
         //缓存地址
         if (httpCacheDirectory == null) {
@@ -35,20 +35,13 @@ class RetrofitClient private constructor(context: Context,baseUrl:String){
         }
         //okhttp创建了
         okHttpClient = OkHttpClient.Builder()
-                //.addNetworkInterceptor(
-                       // HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addNetworkInterceptor(
+                        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache)
-            //    .addInterceptor(CacheInterceptor(context))
-                //.addNetworkInterceptor(CacheInterceptor(context))
+                .addInterceptor(CacheInterceptor(context))
+                .addNetworkInterceptor(CacheInterceptor(context))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .build()
-        //retrofit创建了
-        retrofit = Retrofit.Builder()
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(url)
                 .build()
 
     }
@@ -56,11 +49,11 @@ class RetrofitClient private constructor(context: Context,baseUrl:String){
         @Volatile
         var instance: RetrofitClient? = null
 
-        fun getInstance(context: Context,baseUrl: String) : RetrofitClient {
+        fun getInstance(context: Context) : RetrofitClient {
             if (instance == null) {
                 synchronized(RetrofitClient::class) {
                     if (instance == null) {
-                        instance = RetrofitClient(context,baseUrl)
+                        instance = RetrofitClient(context)
                     }
                 }
             }
@@ -68,7 +61,14 @@ class RetrofitClient private constructor(context: Context,baseUrl:String){
         }
     }
 
-    fun <T> create(service: Class<T>?): T? {
+    fun <T> create(service: Class<T>?,baseUrl: String): T? {
+        //retrofit创建了
+        retrofit = Retrofit.Builder()
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(baseUrl)
+                .build()
         if (service == null) {
             throw RuntimeException("Api service is null!")
         }

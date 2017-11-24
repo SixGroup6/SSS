@@ -8,6 +8,6 @@ package com.bwie.sss.api
 class Api {
     companion object {
         var UP_DATA : String = "http://169.254.26.25:8080/"
-        var VIDEO :String="http://baobab.kaiyanapp.com/api/";
+        var VIDEO :String="http://baobab.kaiyanapp.com/api/"
     }
 }
