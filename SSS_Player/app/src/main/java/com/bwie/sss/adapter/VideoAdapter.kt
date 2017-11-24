@@ -1,7 +1,6 @@
 package com.bwie.sss.adapter
 
 import android.content.Context
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import cn.jzvd.JZVideoPlayerStandard
 import com.bwie.sss.R
 import com.bwie.sss.bean.VideoBean
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import com.squareup.picasso.Picasso
+
 
 /**
  * Created by 燕子 on 2017/11/23.
@@ -28,10 +29,11 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position==0){
-            return TYPE_A
-        }else{
+        val title = video.issueList[0].itemList[position].data.title
+        if (title!=null&&!"".equals(title)){
             return TYPE_B
+        }else{
+            return TYPE_A
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -54,27 +56,50 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
         if(type==0){
             holder as ViewHolder2
             //图片加载框架
-
-
-
+            //Picasso.with(context).load(video.issueList[0].itemList[position].data.image).into(holder.Img)
         }else{
             holder as ViewHoler
             holder.title.text=video.issueList[0].itemList[position].data.title
-            holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,video.issueList[0].itemList[position].data.title,true)
-           Log.i("v", video.issueList[0].itemList[position].data.playUrl+"  ")
+            holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,video.issueList[0].itemList[position].data.title)
+            holder.videoplay.thumbImageView.scaleType=ImageView.ScaleType.FIT_XY
+            Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.videoplay.thumbImageView)
+            holder.itemView.setOnClickListener {
+
+            }
+           /* if (lisener!=null){
+                holder.show?.setOnClickListener({
+                    lisener!!.onItemClick(position)
+                })
+                holder.download?.setOnClickListener({
+                    lisener!!.onItemClick(position)
+                })
+            }*/
+           Log.i("v", video.issueList[0].itemList[position].data.cover.feed+"---------------")
 
         }
     }
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
             var download:ImageView= itemView!!.findViewById(R.id.vide_download) as ImageView
-             var videoplay: JCVideoPlayer = itemView!!.findViewById(R.id.vide_video) as JCVideoPlayer
-            var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
+            var videoplay: JZVideoPlayerStandard = itemView!!.findViewById(R.id.vide_video) as JZVideoPlayerStandard
+        var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
 
     }
     class ViewHolder2 (itemView: View?):RecyclerView.ViewHolder(itemView){
         var Img:ImageView= itemView!!.findViewById(R.id.vide_im) as ImageView
     }
 
+/**
+ * 自定义接口处理点击事件
+ * 跟java的写法基本一致
+ * */
+  /*  interface OnItemClickLitener {
+        fun onItemClick(pos:Int)
+    }
+    var lisener:OnItemClickLitener?=null
+    fun setOniteClickListener(liener: (Any) -> ?){
+        this.lisener=lisener;
+    }*/
 
 }
+

@@ -42,7 +42,11 @@ data class Data(
 		val label: Any, //null
 		val labelList: Any, //null
 		val header: Any ,//null
-		val playUrl:String
+		val playUrl:String,
+		val cover: Cover
 )
+	data class Cover(
+			val feed:String
+	)
 }
 

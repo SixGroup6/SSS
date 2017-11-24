@@ -6,12 +6,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
-import android.os.Looper
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.bwie.sss.R
-import com.bwie.sss.activity.MainActivity.Companion.alert
 import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.FileInfo
 import com.bwie.sss.bean.FileInfoBean
@@ -19,7 +18,6 @@ import com.bwie.sss.bean.UpDataBean
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
-import com.bwie.sss.util.DownLoadUtils
 import com.bwie.sss.view.IView_Main
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -80,6 +78,9 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
        array.add(videoBean)
         videoAdapter= VideoAdapter(this,videoBean)
         recycler.adapter=videoAdapter
+        videoAdapter!!.setOniteClickListener({
+
+        })
         Log.i("video",videoBean.toString())
     }
     override fun onDestroy() {
