@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
+import android.os.Looper
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bwie.sss.R
 import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.FileInfo
@@ -18,11 +20,13 @@ import com.bwie.sss.bean.UpDataBean
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
+import com.bwie.sss.util.DownLoadUtils
 import com.bwie.sss.view.IView_Main
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 
 class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
@@ -93,8 +97,13 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
        array.add(videoBean)
         videoAdapter= VideoAdapter(this,videoBean)
         recycler.adapter=videoAdapter
-        videoAdapter!!.setOniteClickListener({
-
+        videoAdapter!!.setOniteClickListener(object:VideoAdapter.OnItemClickLitener{
+            override fun showLisener(pos: Int) {
+               Toast.makeText(this@MainActivity, "", Toast.LENGTH_SHORT).show()
+            }
+            override fun downloadLisener(pos: Int) {
+                Toast.makeText(this@MainActivity, "", Toast.LENGTH_SHORT).show()
+            }
         })
         Log.i("video",videoBean.toString())
     }

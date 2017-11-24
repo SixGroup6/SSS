@@ -63,21 +63,19 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
             holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,video.issueList[0].itemList[position].data.title)
             holder.videoplay.thumbImageView.scaleType=ImageView.ScaleType.FIT_XY
             Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.videoplay.thumbImageView)
-            holder.itemView.setOnClickListener {
+
+            holder.show?.setOnClickListener {
+                lisener?.showLisener(position)
+            }
+            holder.download.setOnClickListener{
+                lisener?.downloadLisener(position)
+            }
 
             }
-           /* if (lisener!=null){
-                holder.show?.setOnClickListener({
-                    lisener!!.onItemClick(position)
-                })
-                holder.download?.setOnClickListener({
-                    lisener!!.onItemClick(position)
-                })
-            }*/
            Log.i("v", video.issueList[0].itemList[position].data.cover.feed+"---------------")
 
         }
-    }
+
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
             var download:ImageView= itemView!!.findViewById(R.id.vide_download) as ImageView
@@ -93,13 +91,15 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
  * 自定义接口处理点击事件
  * 跟java的写法基本一致
  * */
-  /*  interface OnItemClickLitener {
-        fun onItemClick(pos:Int)
-    }
     var lisener:OnItemClickLitener?=null
-    fun setOniteClickListener(liener: (Any) -> ?){
+    interface OnItemClickLitener {
+        fun downloadLisener(pos:Int)
+        fun showLisener(pos:Int)
+    }
+
+    fun setOniteClickListener(lisener:OnItemClickLitener){
         this.lisener=lisener;
-    }*/
+    }
 
 }
 
