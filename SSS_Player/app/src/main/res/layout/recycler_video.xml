@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/vide_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+<ImageView
+    android:id="@+id/vide_video"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/ic_launcher"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+        android:layout_alignParentLeft="true"
+            android:text="标题"
+            android:id="@+id/vide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+           android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/vide_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

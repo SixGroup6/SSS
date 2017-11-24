@@ -19,6 +19,14 @@ import io.reactivex.schedulers.Schedulers
 class P_UpData : BasePresenter<IView_Main>() {
     var model: IModel_UpData = Model_UpData()
 
+<<<<<<< HEAD
+    fun getUpData(context: Context){
+
+       var f: Flowable<UpDataBean.UpData> = model.getUpData(context)!!
+               f?.subscribeOn(Schedulers.io())
+                ?.observeOn(Schedulers.newThread())
+                ?.subscribe { upData : UpDataBean.UpData ->
+=======
     fun getUpData(context: Context) {
         Log.i("xx", "VideoPresenterlmp")
         val flowable = model.getUpData(context)
@@ -28,16 +36,25 @@ class P_UpData : BasePresenter<IView_Main>() {
                     if (view == null){
                         Log.i("xxx", upData.apkUrl)
                     }
+>>>>>>> 68b322bf494aaf734322c93d17eafbd78173fada
                     view?.setUpdata(upData)
                 }
     }
 
 
+<<<<<<< HEAD
+    fun getloadVideo(context: Context){
+        Log.i("xx","VideoPresenterlmp")
+        var v=model?.getloadVideo(context, Api.VIDEO,true)
+        v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video->
+            Log.e("bean",bean.toString())
+=======
     fun getloadVideo(context: Context) {
         //  Log.i("xx","VideoPresenterlmp")
         var v = model?.getloadVideo(context, Api.VIDEO, true)
         v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video ->
             Log.e("123", bean.nextPageUrl)
+>>>>>>> 68b322bf494aaf734322c93d17eafbd78173fada
             view?.setVideo(bean)
             // view!!.setVideo(bean)
         }
