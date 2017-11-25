@@ -10,7 +10,6 @@ import android.os.Looper
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.bwie.sss.R
 import com.bwie.sss.adapter.VideoAdapter
@@ -52,7 +51,11 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         EventBus.getDefault().register(this)
         recycler.layoutManager= LinearLayoutManager(this )
         presenter?.getUpData(applicationContext)
+       // presenter?.getloadVideo(applicationContext)
         context = this
+        vide_show.setOnClickListener{
+            startActivity(Intent(this@MainActivity,CacheActivity::class.java))
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -93,20 +96,25 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         }
     }
 
-    override fun setVideo(videoBean: VideoBean.Video) {
+    override fun setVideo( videoBean: VideoBean.Video) {
        array.add(videoBean)
         videoAdapter= VideoAdapter(this,videoBean)
         recycler.adapter=videoAdapter
+        Log.i("xxx",videoBean.toString())
         videoAdapter!!.setOniteClickListener(object:VideoAdapter.OnItemClickLitener{
-            override fun showLisener(pos: Int) {
-               Toast.makeText(this@MainActivity, "", Toast.LENGTH_SHORT).show()
-            }
+
             override fun downloadLisener(pos: Int) {
-                Toast.makeText(this@MainActivity, "", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this@MainActivity, "跳转 ,第"+(pos)+"条", Toast.LENGTH_SHORT).show()
+
             }
         })
+
         Log.i("video",videoBean.toString())
+
     }
+
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)

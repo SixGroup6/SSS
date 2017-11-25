@@ -53,6 +53,7 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val type = getItemViewType(position)
+        Log.i("x","------------------------********----")
         if(type==0){
             holder as ViewHolder2
             //图片加载框架
@@ -63,16 +64,15 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
             holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,video.issueList[0].itemList[position].data.title)
             holder.videoplay.thumbImageView.scaleType=ImageView.ScaleType.FIT_XY
             Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.videoplay.thumbImageView)
-
-            holder.show?.setOnClickListener {
+            Log.i("v", video.issueList[0].itemList[position].data.cover.feed+"---------------")
+           /* holder.show?.setOnClickListener {
                 lisener?.showLisener(position)
-            }
+            }*/
             holder.download.setOnClickListener{
                 lisener?.downloadLisener(position)
             }
+        }
 
-            }
-           Log.i("v", video.issueList[0].itemList[position].data.cover.feed+"---------------")
 
         }
 
@@ -80,7 +80,7 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
             var download:ImageView= itemView!!.findViewById(R.id.vide_download) as ImageView
             var videoplay: JZVideoPlayerStandard = itemView!!.findViewById(R.id.vide_video) as JZVideoPlayerStandard
-        var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
+           // var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
 
     }
     class ViewHolder2 (itemView: View?):RecyclerView.ViewHolder(itemView){
@@ -94,7 +94,6 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
     var lisener:OnItemClickLitener?=null
     interface OnItemClickLitener {
         fun downloadLisener(pos:Int)
-        fun showLisener(pos:Int)
     }
 
     fun setOniteClickListener(lisener:OnItemClickLitener){

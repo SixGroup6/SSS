@@ -1,10 +1,7 @@
 package com.bwie.sss.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
-import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,21 +11,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bwie.sss.R
-import com.bwie.sss.activity.CacheActivity
 import com.bwie.sss.bean.VideoB
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.util.ImageLoadUtils
 import com.bwie.sss.util.SPUtils
-
 import io.reactivex.disposables.Disposable
-import zlc.season.rxdownload2.entity.DownloadFlag
 import zlc.season.rxdownload2.RxDownload
+import zlc.season.rxdownload2.entity.DownloadFlag
 
 
 /**
  * Created by lvruheng on 2017/7/7.
  */
-class DownloadAdapter(context: Context, list: ArrayList<VideoB>) : RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>() {
+class DownloadAdapter(context: Context, list: ArrayList<VideoBean>) : RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>() {
     lateinit var mOnLongLisenter: OnLongClickListener
     var context: Context? = null;
     var list: ArrayList<VideoB>? = null
@@ -78,27 +73,7 @@ class DownloadAdapter(context: Context, list: ArrayList<VideoB>) : RecyclerView.
                 addMission(list?.get(position)?.playUrl, position + 1)
             }
         }
-        holder?.itemView?.setOnClickListener {
-            //跳转视频详情页
-            var intent: Intent = Intent(context, CacheActivity::class.java)
-            var desc = list?.get(position)?.description
-            var playUrl = list?.get(position)?.playUrl
-            var blurred = list?.get(position)?.blurred
-            var collect = list?.get(position)?.collect
-            var share = list?.get(position)?.share
-            var reply = list?.get(position)?.reply
-            var time = System.currentTimeMillis()
-            var videoBean = VideoB(photoUrl, title, desc, duration, playUrl, category, blurred, collect, share, reply, time)
-            var url = SPUtils.getInstance(context!!, "beans").getString(playUrl!!)
-            intent.putExtra("data", videoBean as Parcelable)
-            if(hasLoaded){
-                var files = RxDownload.getInstance(context).getRealFiles(playUrl)
-                var uri = Uri.fromFile(files!![0])
-                intent.putExtra("loaclFile",uri.toString())
-            }
 
-            context?.let { context -> context.startActivity(intent) }
-        }
         holder?.itemView?.setOnLongClickListener {
             mOnLongLisenter.onLongClick(position)
             true
