@@ -1,9 +1,12 @@
 package com.bwie.sss.inter
 
+import com.bwie.sss.bean.LoginBean
+import com.bwie.sss.bean.RegisterBean
 import com.bwie.sss.bean.UpDataBean
 import com.bwie.sss.bean.VideoBean
 import io.reactivex.Flowable
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * 1:类的用途
@@ -21,4 +24,10 @@ interface ApiService {
      */
     @GET("v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     fun getVideo():Flowable<VideoBean.Video>
+
+    @GET("reg")
+    fun getRegister(@Query("mobile")moblie:String, @Query("password")password:String):Flowable<RegisterBean.RegisterBean>
+
+    @GET("login")
+    fun getLogin(@Query("mobile")moblie:String,@Query("password")password: String):Flowable<LoginBean.LoginBean>
 }

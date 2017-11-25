@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bwie.sss.activity.RegisterActivity">
 
-</android.support.constraint.ConstraintLayout>
+    android:background="@mipmap/registerpicture"
+    tools:context="com.bwie.sss.activity.RegisterActivity"
+    android:weightSum="1">
+
+
+   <ImageView
+       android:onClick="onClick"
+       android:id="@+id/my_register_return"
+       android:layout_width="30dp"
+       android:layout_height="wrap_content"
+       android:src="@mipmap/register_return"/>
+
+    <RelativeLayout
+        android:alpha="0.4"
+        android:background="@drawable/shaperegister"
+        android:id="@+id/my_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="138dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+    <EditText
+        android:hint="请输入手机号"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/my_register_user"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:hint="请输入密码"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/my_register_pwd"
+        android:layout_below="@+id/my_register_user"
+        android:layout_alignLeft="@+id/my_register_user"
+        android:password="true"
+        android:layout_alignStart="@+id/my_register_user" />
+    </RelativeLayout>
+    <Button
+        android:onClick="onClick"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:background="@drawable/shape"
+        android:id="@+id/my_register"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/my_relative"
+        android:layout_alignLeft="@+id/my_relative"
+        android:layout_alignStart="@+id/my_relative" />
+
+
+</RelativeLayout>

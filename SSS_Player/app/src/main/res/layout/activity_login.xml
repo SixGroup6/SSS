@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/loginpicture"
     tools:context="com.bwie.sss.activity.LoginActivity">
+    <TextView
+        android:id="@+id/my_change_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册用户？"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/my_relative"
+        android:layout_toEndOf="@+id/my_relative"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp" />
+    <ImageView
+        android:id="@+id/my_login_return"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/register_return"/>
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:alpha="0.4"
+        android:background="@drawable/shaperegister"
+        android:id="@+id/my_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="138dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <EditText
+            android:hint="请输入手机号"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/my_login_user"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <EditText
+            android:hint="请输入密码"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/my_login_pwd"
+            android:layout_below="@+id/my_login_user"
+            android:layout_alignLeft="@+id/my_login_user"
+            android:password="true"
+            android:layout_alignStart="@+id/my_login_user" />
+    </RelativeLayout>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:background="@drawable/shapelogin"
+        android:alpha="0.8"
+        android:id="@+id/my_login"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/my_relative"
+        android:layout_alignLeft="@+id/my_relative"
+        android:layout_alignStart="@+id/my_relative" />
+
+</RelativeLayout>
+
+
+
