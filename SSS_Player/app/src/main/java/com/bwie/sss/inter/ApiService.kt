@@ -19,11 +19,17 @@ interface ApiService {
      */
     @GET("08web/UpDataServlet")
     fun getUpDtad():Flowable<UpDataBean.UpData>
+
     /*
      *获取Video页数据
      */
     @GET("v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     fun getVideo():Flowable<VideoBean.Video>
+    /*
+        最后一条//date=1499043600000&num=2
+     */
+    @GET("v2/feed")
+    fun getVideoEnd(@Query("date")date:String,@Query("num")num:String):Flowable<VideoBean.Video>
 
     @GET("reg")
     fun getRegister(@Query("mobile")moblie:String, @Query("password")password:String):Flowable<RegisterBean.RegisterBean>

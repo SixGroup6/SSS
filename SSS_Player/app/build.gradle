@@ -61,6 +61,7 @@ dependencies {
     compile 'zlc.season:rxdownload2:2.0.4'
     //节操
     compile 'cn.jzvd:jiaozivideoplayer:6.0.0'
+    compile project(':swiperefreshlayoutlibrary')
 }
 repositories {
     mavenCentral()

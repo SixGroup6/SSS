@@ -20,7 +20,8 @@ class Model_UpData : IModel_UpData {
        val apiService = RetrofitClient.getInstance(context).create(ApiService::class.java,Api.UP_DATA)
         return apiService?.getUpDtad()
     }
-    override fun getloadVideo(context: Context, url: String, isB: Boolean): Flowable<VideoBean.Video>? {
+    override fun getloadVideo(context: Context, isB: Boolean,date:String): Flowable<VideoBean.Video>? {
+        Log.i("date",date.toString())
         Log.i("xx","VideoModel")
         val retrofitClient= RetrofitClient.getInstance(context)
         Log.i("xx",Api.VIDEO)
@@ -28,8 +29,8 @@ class Model_UpData : IModel_UpData {
         when(isB){
             true ->return apiService?.getVideo()!!//默认
 
-
-            false-> return apiService?.getVideo()!!
+            //apiService?.getVideoEnd(date.toString(),"2")!!
+            false-> return apiService?.getVideoEnd(date.toString(),"2")!!
         }
 
     }

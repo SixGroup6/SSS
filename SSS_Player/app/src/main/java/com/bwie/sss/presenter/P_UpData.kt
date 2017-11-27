@@ -2,7 +2,6 @@ package com.bwie.sss.presenter
 
 import android.content.Context
 import android.util.Log
-import com.bwie.sss.api.Api
 import com.bwie.sss.bean.UpDataBean
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.model.IModel_UpData
@@ -34,8 +33,15 @@ class P_UpData : BasePresenter<IView_Main>() {
     }
 
     fun getloadVideo(context: Context){
+        var v=model?.getloadVideo(context,true,"0")
+        v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video ->
+            Log.e("bean", bean.toString())
+            view?.setVideo(bean)
+        }
+    }
+    fun getloadVideoEnd(context: Context,date: String){
         Log.i("xx","VideoPresenterlmp")
-        var v=model?.getloadVideo(context, Api.VIDEO,true)
+        var v=model?.getloadVideo(context,false,date)
         v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video ->
             Log.e("bean", bean.toString())
             view?.setVideo(bean)
