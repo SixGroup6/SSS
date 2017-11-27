@@ -1,0 +1,5 @@
+<root>
+    <item name='java.io.InputStream int read(byte[])'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>
