@@ -6,6 +6,7 @@ import android.view.View.OnClickListener
 import android.widget.*
 import com.bwie.sss.R
 import com.bwie.sss.presenter.LoginPresenter
+import com.bwie.sss.util.SpUtils
 import com.bwie.sss.view.LoginViewInterface
 
 class LoginActivity : BaseActivity<LoginViewInterface, LoginPresenter>(),LoginViewInterface, OnClickListener{
@@ -54,9 +55,13 @@ class LoginActivity : BaseActivity<LoginViewInterface, LoginPresenter>(),LoginVi
 
     override fun onSuccess() {
         Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show()
+        val preferences = SpUtils(this@LoginActivity).prefs
+        preferences.edit().putBoolean("islogin",true).commit()
         intent=Intent()
         intent.setClass(this,MainActivity::class.java)
+        intent.putExtra("login",true)
         startActivity(intent)
+        finish()
     }
 
     override fun onError() {

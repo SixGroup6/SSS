@@ -20,6 +20,7 @@ import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
 import com.bwie.sss.util.DownLoadUtils
+import com.bwie.sss.util.SpUtils
 import com.bwie.sss.view.IView_Main
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -28,15 +29,15 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 
-class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
+class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
 
-    val array=ArrayList<VideoBean.Video>()
-    var videoAdapter: VideoAdapter?=null
-    var dialog : ProgressDialog? = null
+    val array = ArrayList<VideoBean.Video>()
+    var videoAdapter: VideoAdapter? = null
+    var dialog: ProgressDialog? = null
 
     companion object {
-        var context : Context? = null
-        lateinit var alert : AlertDialog
+        var context: Context? = null
+        lateinit var alert: AlertDialog
     }
 
     override fun getLayout(): Int {
@@ -48,14 +49,20 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
     }
 
     override fun initData() {
-        EventBus.getDefault().register(this)
-        recycler.layoutManager= LinearLayoutManager(this )
-        presenter?.getUpData(applicationContext)
-       // presenter?.getloadVideo(applicationContext)
-        context = this
-        vide_show.setOnClickListener{
-            startActivity(Intent(this@MainActivity,CacheActivity::class.java))
+        val intent = intent
+        val extra = intent.getBooleanExtra("login", false)
+        if (extra) {
+            presenter?.getloadVideo(applicationContext)
+        } else {
+            presenter?.getUpData(applicationContext)
         }
+        EventBus.getDefault().register(this)
+        recycler.layoutManager = LinearLayoutManager(this)
+        context = this
+        vide_show.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CacheActivity::class.java))
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -81,7 +88,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
                         dialog = ProgressDialog(this)
                         dialog!!.setMessage("正在下载……")
                         dialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
-                        dialog!!.setButton("取消",DialogInterface.OnClickListener { dialogInterface, i ->
+                        dialog!!.setButton("取消", DialogInterface.OnClickListener { dialogInterface, i ->
                             DownLoadUtils.isPause = true
                             presenter!!.getloadVideo(application)
                         })
@@ -96,21 +103,26 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         }
     }
 
-    override fun setVideo( videoBean: VideoBean.Video) {
-       array.add(videoBean)
-        videoAdapter= VideoAdapter(this,videoBean)
-        recycler.adapter=videoAdapter
-        Log.i("xxx",videoBean.toString())
-        videoAdapter!!.setOniteClickListener(object:VideoAdapter.OnItemClickLitener{
+    override fun setVideo(videoBean: VideoBean.Video) {
+        array.add(videoBean)
+        videoAdapter = VideoAdapter(this, videoBean)
+        recycler.adapter = videoAdapter
+        Log.i("xxx", videoBean.toString())
+        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
 
             override fun downloadLisener(pos: Int) {
-
-                Toast.makeText(this@MainActivity, "跳转 ,第"+(pos)+"条", Toast.LENGTH_SHORT).show()
-
+                val preferences = SpUtils(this@MainActivity).prefs
+                val islogin = preferences.getBoolean("islogin", false)
+                if (islogin) {
+                    Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
+                } else {
+                    var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                }
             }
         })
 
-        Log.i("video",videoBean.toString())
+        Log.i("video", videoBean.toString())
 
     }
 
@@ -121,10 +133,10 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun event(fileInfo: FileInfo){
+    fun event(fileInfo: FileInfo) {
         dialog!!.progress = fileInfo.length!!
-        Log.i("xxx",fileInfo.length!!.toString())
-        if (fileInfo.length == 100){
+        Log.i("xxx", fileInfo.length!!.toString())
+        if (fileInfo.length == 100) {
             dialog!!.dismiss()
         }
     }
