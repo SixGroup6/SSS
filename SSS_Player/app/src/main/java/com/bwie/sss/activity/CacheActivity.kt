@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bwie.sss.R
-import com.bwie.sss.adapter.DownloadAdapter
 
 import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.util.ObjectSaveUtils

@@ -6,11 +6,14 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
 import android.os.Looper
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
+import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout
+import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayoutDirection
 import com.bwie.sss.R
 import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.FileInfo
@@ -26,13 +29,17 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
+import java.util.regex.Pattern
 
 
 class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
+    var handle:Handler=object:Handler(){
 
+    };
     val array=ArrayList<VideoBean.Video>()
     var videoAdapter: VideoAdapter?=null
     var dialog : ProgressDialog? = null
+    var date:String?=null;
 
     companion object {
         var context : Context? = null
@@ -50,12 +57,14 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
     override fun initData() {
         EventBus.getDefault().register(this)
         recycler.layoutManager= LinearLayoutManager(this )
-        presenter?.getUpData(applicationContext)
-       // presenter?.getloadVideo(applicationContext)
+       // presenter?.getUpData(applicationContext)
+        presenter?.getloadVideo(applicationContext)
         context = this
         vide_show.setOnClickListener{
-            startActivity(Intent(this@MainActivity,CacheActivity::class.java))
+        //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
         }
+        swipy.setDirection(SwipyRefreshLayoutDirection.BOTH)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -100,7 +109,12 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
        array.add(videoBean)
         videoAdapter= VideoAdapter(this,videoBean)
         recycler.adapter=videoAdapter
-        Log.i("xxx",videoBean.toString())
+
+        val regEx = "[^0-9]"
+        val p = Pattern.compile(regEx)
+        val m = p.matcher(videoBean?.nextPageUrl)
+        date = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
+
         videoAdapter!!.setOniteClickListener(object:VideoAdapter.OnItemClickLitener{
 
             override fun downloadLisener(pos: Int) {
@@ -109,9 +123,23 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
 
             }
         })
+        swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener{
+            override fun onRefresh(index: Int) {
 
-        Log.i("video",videoBean.toString())
 
+            }
+
+
+            override fun onLoad(index: Int) {
+             handle.postAtTime(Runnable {
+                 for (i in videoBean.issueList){
+                     presenter?.getloadVideoEnd(this@MainActivity , date!!)
+                     swipy.setRefreshing(false)
+                 }
+             },5000)
+            }
+
+        })
     }
 
 

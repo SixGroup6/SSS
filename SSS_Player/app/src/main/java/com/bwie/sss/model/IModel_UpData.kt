@@ -14,5 +14,6 @@ interface IModel_UpData {
 
     fun getUpData(context: Context) : Flowable<UpDataBean.UpData>?
 
-    fun getloadVideo(context: Context, url: String, isB: Boolean):Flowable<VideoBean.Video>?
+    fun getloadVideo(context: Context, isB: Boolean,date:String):Flowable<VideoBean.Video>?
+
 }

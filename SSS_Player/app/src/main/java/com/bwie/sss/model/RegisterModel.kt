@@ -31,7 +31,7 @@ class RegisterModel:RegisterModelInterface{
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
             val validPhoneNumber = TelNumMatch.isValidPhoneNumber(username)
             if (validPhoneNumber) {
-                var create = RetrofitClient.getInstance(context, Api.REGISTER_URL).create(ApiService::class.java)
+                var create = RetrofitClient.getInstance(context).create(ApiService::class.java,Api.REGISTER_URL)
                 var flowable = create!!.getRegister(username, password)
                 Log.e("xxx3", "" + username + password)
                 flowable.subscribeOn(Schedulers.io())
