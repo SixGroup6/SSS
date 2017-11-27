@@ -116,6 +116,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
                 if (islogin) {
                     Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
                 } else {
+				    //登录
                     var intent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(intent)
                 }
