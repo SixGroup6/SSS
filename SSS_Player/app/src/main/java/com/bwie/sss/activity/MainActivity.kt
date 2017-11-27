@@ -33,22 +33,13 @@ import java.util.*
 import java.util.regex.Pattern
 
 
-<<<<<<< HEAD
 class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
-    var handle:Handler=object:Handler(){
-
-    };
+    var handle:Handler=object:Handler(){};
     val array=ArrayList<VideoBean.Video>()
     var videoAdapter: VideoAdapter?=null
     var dialog : ProgressDialog? = null
-    var date:String?=null;
-=======
-class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
+    var data:String?=null;
 
-    val array = ArrayList<VideoBean.Video>()
-    var videoAdapter: VideoAdapter? = null
-    var dialog: ProgressDialog? = null
->>>>>>> cbd0c75cfa732e76b95e1c625e196badd428a57e
 
     companion object {
         var context: Context? = null
@@ -72,28 +63,24 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
             presenter?.getUpData(applicationContext)
         }
         EventBus.getDefault().register(this)
-<<<<<<< HEAD
         recycler.layoutManager= LinearLayoutManager(this )
-       // presenter?.getUpData(applicationContext)
-        presenter?.getloadVideo(applicationContext)
+        presenter?.getUpData(applicationContext)
+       // presenter?.getloadVideo(applicationContext)
         context = this
         vide_show.setOnClickListener{
         //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
         }
         swipy.setDirection(SwipyRefreshLayoutDirection.BOTH)
-=======
         recycler.layoutManager = LinearLayoutManager(this)
         context = this
         vide_show.setOnClickListener {
             startActivity(Intent(this@MainActivity, CacheActivity::class.java))
         }
->>>>>>> cbd0c75cfa732e76b95e1c625e196badd428a57e
 
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun setUpdata(upData: UpDataBean.UpData) {
-
         val versionCode = packageManager.getPackageInfo(getPackageName(), 0).versionCode
         if (versionCode < upData.versionName.toInt()) {
             Looper.prepare()
@@ -129,7 +116,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
         }
     }
 
-<<<<<<< HEAD
+
     override fun setVideo( videoBean: VideoBean.Video) {
        array.add(videoBean)
         videoAdapter= VideoAdapter(this,videoBean)
@@ -138,68 +125,53 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
         val regEx = "[^0-9]"
         val p = Pattern.compile(regEx)
         val m = p.matcher(videoBean?.nextPageUrl)
-        date = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
+        data = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
 
-        videoAdapter!!.setOniteClickListener(object:VideoAdapter.OnItemClickLitener{
-=======
-    override fun setVideo(videoBean: VideoBean.Video) {
-        array.add(videoBean)
-        videoAdapter = VideoAdapter(this, videoBean)
-        recycler.adapter = videoAdapter
-        Log.i("xxx", videoBean.toString())
-        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
->>>>>>> cbd0c75cfa732e76b95e1c625e196badd428a57e
+                videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
 
-            override fun downloadLisener(pos: Int) {
-                val preferences = SpUtils(this@MainActivity).prefs
-                val islogin = preferences.getBoolean("islogin", false)
-                if (islogin) {
-                    Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
-                } else {
-				    //登录
-                    var intent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(intent)
+                    override fun downloadLisener(pos: Int) {
+                        val preferences = SpUtils(this@MainActivity).prefs
+                        val islogin = preferences.getBoolean("islogin", false)
+                        if (islogin) {
+                            Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
+                        } else {
+                            //登录
+                            var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                })
+                swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
+                    override fun onRefresh(index: Int) {
+                    }
+                    override fun onLoad(index: Int) {
+                        handle.postAtTime(Runnable {
+                            for (i in videoBean.issueList) {
+                                presenter?.getloadVideoEnd(this@MainActivity, data!!)
+                                swipy.setRefreshing(false)
+                            }
+                        }, 5000)
+                    }
+
+                })
+            }
+
+            override fun onDestroy() {
+                super.onDestroy()
+                EventBus.getDefault().unregister(this)
+            }
+
+
+            @Subscribe(threadMode = ThreadMode.MAIN)
+            fun event(fileInfo: FileInfo) {
+                dialog!!.progress = fileInfo.length!!
+                Log.i("xxx", fileInfo.length!!.toString())
+                if (fileInfo.length == 100) {
+                    dialog!!.dismiss()
                 }
             }
-        })
-        swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener{
-            override fun onRefresh(index: Int) {
 
-<<<<<<< HEAD
-=======
-        Log.i("video", videoBean.toString())
->>>>>>> cbd0c75cfa732e76b95e1c625e196badd428a57e
-
-            }
-
-
-            override fun onLoad(index: Int) {
-             handle.postAtTime(Runnable {
-                 for (i in videoBean.issueList){
-                     presenter?.getloadVideoEnd(this@MainActivity , date!!)
-                     swipy.setRefreshing(false)
-                 }
-             },5000)
-            }
-
-        })
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun event(fileInfo: FileInfo) {
-        dialog!!.progress = fileInfo.length!!
-        Log.i("xxx", fileInfo.length!!.toString())
-        if (fileInfo.length == 100) {
-            dialog!!.dismiss()
-        }
-    }
-}
+         }
 
 
 
