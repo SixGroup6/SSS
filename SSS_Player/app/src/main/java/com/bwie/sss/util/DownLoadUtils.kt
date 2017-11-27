@@ -36,7 +36,7 @@ class DownLoadUtils {
     }
 
     fun downLoad(){
-        val flist = dao?.queryBuilder()?.where(FileInfoBeanDao.Properties.Url.eq(fileInfo?.getUrl()))?.build()?.list()
+        val flist = dao?.queryBuilder()?.where(FileInfoBeanDao.Properties.Url.eq(fileInfo?.url))?.build()?.list()
         if (flist!!.size == 0){
             //第一次下载  将下载信息存到数据库
             dao!!.insert(fileInfo)
@@ -61,7 +61,7 @@ class DownLoadUtils {
             //开始下载的位置
             var start : Int = fileInfo!!.start+ fileInfo!!.now
             //从指定位置开始请求
-            connection.setRequestProperty("Range","bytes=" + start + "-" + fileInfo!!.getLength())
+            connection.setRequestProperty("Range","bytes=" + start + "-" + fileInfo!!.length)
             //设置文件写入位置
             val file = File("/mnt/sdcard/mdownload","new.apk")
             val randomAccessFile = RandomAccessFile(file, "rwd")
@@ -85,10 +85,10 @@ class DownLoadUtils {
                     //间隔更新进度条
                     if (System.currentTimeMillis() - time > 500){
                         time = System.currentTimeMillis()
-                        EventBus.getDefault().post(FileInfo(finshed*100/ fileInfo!!.getLength()))
+                        EventBus.getDefault().post(FileInfo(finshed*100/ fileInfo!!.length))
                     }
                     if (isPause){
-                        val fileInfoBean = dao?.queryBuilder()!!.where(FileInfoBeanDao.Properties.Url.eq(fileInfo!!.getUrl())).build().unique()
+                        val fileInfoBean = dao?.queryBuilder()!!.where(FileInfoBeanDao.Properties.Url.eq(fileInfo!!.url)).build().unique()
                         fileInfoBean.now = finshed
                         dao!!.update(fileInfoBean)
                         return
@@ -96,7 +96,7 @@ class DownLoadUtils {
                 }while (length != -1)
                 //下载完成  删除
                 EventBus.getDefault().post(FileInfo(100))
-                val unique = dao?.queryBuilder()!!.where(FileInfoBeanDao.Properties.Url.eq(fileInfo!!.getUrl())).build().unique()
+                val unique = dao?.queryBuilder()!!.where(FileInfoBeanDao.Properties.Url.eq(fileInfo!!.url)).build().unique()
                 if (unique != null){
                     Log.e("xxx","数据库删除成功")
                     dao!!.delete(unique)

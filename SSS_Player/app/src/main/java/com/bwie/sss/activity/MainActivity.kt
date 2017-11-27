@@ -114,7 +114,8 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
                 val preferences = SpUtils(this@MainActivity).prefs
                 val islogin = preferences.getBoolean("islogin", false)
                 if (islogin) {
-                    Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
+                    var intent_cache=Intent(this@MainActivity,CacheActivity::class.java);
+                    startActivity(intent_cache)
                 } else {
 				    //登录
                     var intent = Intent(this@MainActivity, LoginActivity::class.java)

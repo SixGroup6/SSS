@@ -1,10 +1,12 @@
 package com.bwie.sss.bean
 
+import java.io.Serializable
+
 /**
  * Created by 燕子 on 2017/11/22.
  */
 
-class VideoBean {
+class VideoBean : Serializable{
 
 data class Video(
 		val issueList: List<Issue>,
