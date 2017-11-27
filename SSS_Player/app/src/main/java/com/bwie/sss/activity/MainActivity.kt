@@ -70,7 +70,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         vide_show.setOnClickListener{
         //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
         }
-        swipy.setDirection(SwipyRefreshLayoutDirection.BOTH)
+        swipy.direction = SwipyRefreshLayoutDirection.BOTH
         recycler.layoutManager = LinearLayoutManager(this)
         context = this
         vide_show.setOnClickListener {
@@ -126,9 +126,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         val p = Pattern.compile(regEx)
         val m = p.matcher(videoBean?.nextPageUrl)
         data = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
-
                 videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
-
                     override fun downloadLisener(pos: Int) {
                         val preferences = SpUtils(this@MainActivity).prefs
                         val islogin = preferences.getBoolean("islogin", false)
@@ -142,13 +140,12 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
                     }
                 })
                 swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
-                    override fun onRefresh(index: Int) {
-                    }
+                    override fun onRefresh(index: Int) {}
                     override fun onLoad(index: Int) {
                         handle.postAtTime(Runnable {
                             for (i in videoBean.issueList) {
                                 presenter?.getloadVideoEnd(this@MainActivity, data!!)
-                                swipy.setRefreshing(false)
+                                swipy.isRefreshing = false
                             }
                         }, 5000)
                     }
@@ -161,7 +158,6 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
                 EventBus.getDefault().unregister(this)
             }
 
-
             @Subscribe(threadMode = ThreadMode.MAIN)
             fun event(fileInfo: FileInfo) {
                 dialog!!.progress = fileInfo.length!!
@@ -170,10 +166,4 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
                     dialog!!.dismiss()
                 }
             }
-
          }
-
-
-
-
-
