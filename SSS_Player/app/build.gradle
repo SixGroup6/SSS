@@ -60,8 +60,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'zlc.season:rxdownload2:2.0.4'
     compile 'cn.jzvd:jiaozivideoplayer:6.0.0'
-    compile project(':swiperefreshlayoutlibrary')
     testCompile 'junit:junit:4.12'
+    compile project(':swiperefreshlayoutlibrary')
 }
 repositories {
     mavenCentral()
