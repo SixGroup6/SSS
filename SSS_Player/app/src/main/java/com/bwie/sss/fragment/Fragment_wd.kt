@@ -1,11 +1,23 @@
 package com.bwie.sss.fragment
 
-import android.support.v4.app.Fragment
+import com.bwie.sss.R
+import com.bwie.sss.presenter.P_UpData
+import com.bwie.sss.view.IView_Main
 
 /**
  * 1:类的用途
  * 2：@author Dell
  * 3：@date 2017/11/27
  */
-class Fragment_wd : Fragment(){
+class Fragment_wd : BaseFragment<IView_Main,P_UpData<IView_Main>>(){
+    override fun initData() {
+    }
+
+    override fun getPresenter(): P_UpData<IView_Main>? {
+        return null
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.fragment_wd
+    }
 }

@@ -8,11 +8,9 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Toast
 import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout
 import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayoutDirection
 import com.bwie.sss.R
-import com.bwie.sss.activity.CacheActivity
 import com.bwie.sss.activity.LoginActivity
 import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.FileInfo

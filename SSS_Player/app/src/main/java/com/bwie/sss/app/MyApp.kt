@@ -1,6 +1,5 @@
 package com.bwie.sss.app
 
-import android.app.Application
 import android.database.sqlite.SQLiteDatabase
 import android.support.multidex.MultiDexApplication
 import com.bwie.sss.greendao.DaoMaster

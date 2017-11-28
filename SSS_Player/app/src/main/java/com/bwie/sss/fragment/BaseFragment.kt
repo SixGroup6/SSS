@@ -32,7 +32,7 @@ abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment() {
 
     abstract fun initData()
 
-    internal abstract fun getPresenter(): T
+    internal abstract fun getPresenter(): T?
 
     abstract fun getLayout(): Int
 
