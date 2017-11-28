@@ -39,7 +39,7 @@ class CacheActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cache)
         // 初始化控件
         listView = findViewById(R.id.list_view) as ListView?
-        mFileList = ArrayList<FileIn>()
+        mFileList = ArrayList<FileIn>() as MutableList<FileIn>?
 
         // 初始化文件对象
         val fileInfo1 = FileIn(0, urlone, getfileName(urlone), 0, 0)

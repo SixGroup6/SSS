@@ -61,12 +61,10 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
         presenter?.getloadVideo(activity.applicationContext)
         var intent = activity.intent
         var extra = intent.getBooleanExtra("login", false)
-        if (!extra) {
+        //版本更新
+        /*if (!extra) {
             presenter?.getUpData(activity.applicationContext)
-        }
-        vide_show.setOnClickListener {
-            //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
-        }
+        }*/
         swipy.direction = SwipyRefreshLayoutDirection.BOTH
         recycler.layoutManager = LinearLayoutManager(activity)
         vide_show.setOnClickListener {
@@ -89,7 +87,7 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
                 var preferences = SpUtils(activity).prefs
                 var islogin = preferences.getBoolean("islogin", false)
                 if (islogin) {
-                    Toast.makeText(activity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
+                    //下载视频
                 } else {
                     //登录
                     var intent = Intent(activity, LoginActivity::class.java)

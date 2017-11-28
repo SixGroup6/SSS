@@ -2,6 +2,7 @@ package com.bwie.sss.app
 
 import android.app.Application
 import android.database.sqlite.SQLiteDatabase
+import android.support.multidex.MultiDexApplication
 import com.bwie.sss.greendao.DaoMaster
 import com.bwie.sss.greendao.DaoSession
 
@@ -10,7 +11,7 @@ import com.bwie.sss.greendao.DaoSession
  * 2：@author Dell
  * 3：@date 2017/11/22
  */
-class MyApp :Application() {
+class MyApp : MultiDexApplication() {
     var mHelper : DaoMaster.DevOpenHelper? = null
     var db : SQLiteDatabase? = null
     var mDaoMaster : DaoMaster? = null

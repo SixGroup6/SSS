@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -62,6 +63,11 @@ dependencies {
     compile 'cn.jzvd:jiaozivideoplayer:6.0.0'
     testCompile 'junit:junit:4.12'
     compile project(':swiperefreshlayoutlibrary')
+    compile 'com.android.support:multidex:1.0.1'
+    //AutoLayout适配
+    compile 'com.zhy:autolayout:1.4.5'
+    //沉浸式状态栏
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
 }
 repositories {
     mavenCentral()

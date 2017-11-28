@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bwie.sss.presenter.BasePresenter
+import com.jaeger.library.StatusBarUtil
 
 /**
  * 1:类的用途
@@ -16,6 +17,7 @@ abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment() {
     var presenter : T? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(getLayout(), container, false)
+        StatusBarUtil.setTranslucent(activity,0)
         presenter = getPresenter()
         if (presenter != null) {
             presenter!!.attachView(this as V)

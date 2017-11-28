@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70px"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="视频"
-            android:textSize="18sp"
+            android:textSize="35px"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             />
@@ -18,9 +18,9 @@
             android:layout_alignParentRight="true"
             android:src="@mipmap/more"
             android:id="@+id/vide_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
+            android:layout_width="35px"
+            android:layout_height="35px"
+            android:layout_marginRight="30px"
             android:layout_centerVertical="true"
             />
     </RelativeLayout>

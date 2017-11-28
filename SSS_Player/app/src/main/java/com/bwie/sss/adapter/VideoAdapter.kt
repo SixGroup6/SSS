@@ -47,13 +47,11 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
             return myViewHoler
         }
 
-        Log.i("x","onCreateViewHolder")
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val type = getItemViewType(position)
-        Log.i("x","------------------------********----")
         if(type==0){
             holder as ViewHolder2
             //图片加载框架
