@@ -136,9 +136,6 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
                     var intent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(intent)
                 }
-
-
-
             }
         })
         swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
@@ -151,7 +148,6 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
                     }
                 }, 5000)
             }
-
         })
     }
 
