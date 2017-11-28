@@ -2,7 +2,6 @@ package com.bwie.sss.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-
 import com.bwie.sss.presenter.BasePresenter
 
 /**
@@ -27,7 +26,7 @@ abstract class BaseActivity<V, T : BasePresenter<V>> : AppCompatActivity() {
 
      abstract fun getLayout(): Int
 
-     internal abstract fun getPresenter(): T
+     internal abstract fun getPresenter(): T?
 
      abstract fun initData()
 
