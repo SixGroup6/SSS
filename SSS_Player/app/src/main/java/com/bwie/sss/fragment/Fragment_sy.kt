@@ -68,7 +68,8 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
         swipy.direction = SwipyRefreshLayoutDirection.BOTH
         recycler.layoutManager = LinearLayoutManager(activity)
         vide_show.setOnClickListener {
-            startActivity(Intent(activity, CacheActivity::class.java))
+            //跳转到搜索界面
+            //startActivity(Intent(activity, CacheActivity::class.java))
         }
 
     }

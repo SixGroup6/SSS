@@ -44,6 +44,9 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
         }else{
             val v=LayoutInflater.from(context).inflate(R.layout.recycler_video,parent,false);
             var myViewHoler=ViewHoler(v)
+            v.setOnClickListener {
+                lisener?.downloadLisener(myViewHoler.position)
+            }
             return myViewHoler
         }
 
@@ -59,16 +62,8 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
         }else{
             holder as ViewHoler
             holder.title.text=video.issueList[0].itemList[position].data.title
-            holder.videoplay.setUp(video.issueList[0].itemList[position].data.playUrl,JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,video.issueList[0].itemList[position].data.title)
-            holder.videoplay.thumbImageView.scaleType=ImageView.ScaleType.FIT_XY
-            Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.videoplay.thumbImageView)
-            Log.i("v", video.issueList[0].itemList[position].data.cover.feed+"---------------")
-           /* holder.show?.setOnClickListener {
-                lisener?.showLisener(position)
-            }*/
-            holder.download.setOnClickListener{
-                lisener?.downloadLisener(position)
-            }
+            holder.iv_video.scaleType=ImageView.ScaleType.FIT_XY
+            Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.iv_video)
         }
 
 
@@ -76,9 +71,7 @@ class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.
 
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
-            var download:ImageView= itemView!!.findViewById(R.id.vide_download) as ImageView
-            var videoplay: JZVideoPlayerStandard = itemView!!.findViewById(R.id.vide_video) as JZVideoPlayerStandard
-           // var show: ImageView? = itemView!!.findViewById(R.id.vide_show) as ImageView?
+            var iv_video:ImageView=itemView!!.findViewById(R.id.iv_video) as ImageView
 
     }
     class ViewHolder2 (itemView: View?):RecyclerView.ViewHolder(itemView){
