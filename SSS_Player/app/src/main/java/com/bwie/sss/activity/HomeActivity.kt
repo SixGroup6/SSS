@@ -1,5 +1,6 @@
 package com.bwie.sss.activity
 
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,23 +16,29 @@ import com.bwie.sss.view.IView_Main
 import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : BaseActivity<IView_Main,P_UpData>() {
+class HomeActivity : BaseActivity<IView_Main,P_UpData<Any?>>() {
     var fragments = arrayOf<Class<*>>(Fragment_sy::class.java,Fragment_fx::class.java,Fragment_rm::class.java,Fragment_wd::class.java)
     var mImageViewArray = intArrayOf(R.drawable.but_sy,R.drawable.but_fx,R.drawable.but_rm,R.drawable.but_wd)
     var mTextviewArray = arrayOf("首页","发现","热门","我的")
+
+    companion object {
+        var context: Context? = null
+    }
 
     override fun getLayout(): Int {
         return R.layout.activity_home
     }
 
-    override fun getPresenter(): P_UpData? {
+    override fun getPresenter(): P_UpData<Any?>? {
         return null
     }
 
     override fun initData() {
+        context = this
         //得到fragment个数
         var count : Int = fragments.size
         tabhost.setup(this,supportFragmentManager,R.id.realtabcontent)
+        //tabhost.setup(this,supportFragmentManager,R.id.realtabcontent)
         for (i in 0 until count) {
             //为每一个Tab按钮设置图标、文字和内容
             val tabSpec : TabHost.TabSpec = tabhost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i))

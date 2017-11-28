@@ -19,11 +19,11 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.CacheActivity" />
         <activity android:name=".activity.LoginActivity" />
@@ -32,11 +32,11 @@
         <service android:name=".service.PlayService" />
 
         <activity android:name=".activity.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.CacheActivity" />
         <activity android:name=".activity.LoginActivity" />

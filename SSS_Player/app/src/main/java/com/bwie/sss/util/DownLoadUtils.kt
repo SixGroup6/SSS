@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import com.bwie.sss.activity.HomeActivity
 import com.bwie.sss.activity.MainActivity
 import com.bwie.sss.app.MyApp
 import com.bwie.sss.bean.FileInfo
@@ -104,7 +105,7 @@ class DownLoadUtils {
                 //调起安装
                 var intent =  Intent(Intent.ACTION_VIEW)
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive")
-                MainActivity.context!!.startActivity(intent)
+                HomeActivity.context!!.startActivity(intent)
             }
         }
     }

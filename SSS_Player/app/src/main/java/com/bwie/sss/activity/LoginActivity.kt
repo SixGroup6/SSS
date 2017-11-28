@@ -59,7 +59,7 @@ class LoginActivity : BaseActivity<LoginViewInterface, LoginPresenter>(),LoginVi
         val preferences = SpUtils(this@LoginActivity).prefs
         preferences.edit().putBoolean("islogin",true).commit()
         intent=Intent()
-        intent.setClass(this,MainActivity::class.java)
+        intent.setClass(this,HomeActivity::class.java)
         intent.putExtra("login",true)
         startActivity(intent)
         finish()

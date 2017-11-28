@@ -15,17 +15,22 @@ import com.bwie.sss.presenter.BasePresenter
 abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment() {
     var presenter : T? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater!!.inflate(getLayout(), container, false)
         presenter = getPresenter()
         if (presenter != null) {
             presenter!!.attachView(this as V)
         }
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initData()//初始化的方法
-        return inflater!!.inflate(getLayout(),container,false)
     }
 
     abstract fun initData()
 
-    internal abstract fun getPresenter(): T?
+    internal abstract fun getPresenter(): T
 
     abstract fun getLayout(): Int
 

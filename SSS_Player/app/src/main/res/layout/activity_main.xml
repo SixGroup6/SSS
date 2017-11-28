@@ -4,38 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-       >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="视频"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            />
-        <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/more"
-            android:id="@+id/vide_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
-            />
-    </RelativeLayout>
-<com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/swipy">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+
+    <ImageView
+        android:id="@+id/wel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-</com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout>
-
-
+        android:src="@mipmap/landing_background"/>
 </LinearLayout>

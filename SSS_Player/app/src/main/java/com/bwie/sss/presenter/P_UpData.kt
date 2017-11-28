@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
  * 2：@author Dell
  * 3：@date 2017/11/22
  */
-class P_UpData : BasePresenter<IView_Main>() {
+class P_UpData<T> : BasePresenter<IView_Main>() {
     var model: IModel_UpData = Model_UpData()
 
 
