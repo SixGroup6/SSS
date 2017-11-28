@@ -116,6 +116,29 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         }
     }
 
+<<<<<<< HEAD
+    override fun setVideo(videoBean: VideoBean.Video) {
+        array.add(videoBean)
+        videoAdapter = VideoAdapter(this, videoBean)
+        recycler.adapter = videoAdapter
+        Log.i("xxx", videoBean.toString())
+        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
+
+            override fun downloadLisener(pos: Int) {
+                val preferences = SpUtils(this@MainActivity).prefs
+                val islogin = preferences.getBoolean("islogin", false)
+                if (islogin) {
+                    var intent_cache=Intent(this@MainActivity,CacheActivity::class.java);
+                    startActivity(intent_cache)
+                } else {
+				    //登录
+                    var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
+=======
+>>>>>>> d39631c77dead464a96f47235b48b73a324ce8df
 
     override fun setVideo( videoBean: VideoBean.Video) {
        array.add(videoBean)

@@ -7,6 +7,7 @@ import android.widget.*
 import com.bwie.sss.R
 import com.bwie.sss.presenter.LoginPresenter
 import com.bwie.sss.util.SpUtils
+
 import com.bwie.sss.view.LoginViewInterface
 
 class LoginActivity : BaseActivity<LoginViewInterface, LoginPresenter>(),LoginViewInterface, OnClickListener{
