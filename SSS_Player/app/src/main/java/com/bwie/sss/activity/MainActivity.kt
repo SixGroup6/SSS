@@ -33,12 +33,12 @@ import java.util.*
 import java.util.regex.Pattern
 
 
-class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
-    var handle:Handler=object:Handler(){};
-    val array=ArrayList<VideoBean.Video>()
-    var videoAdapter: VideoAdapter?=null
-    var dialog : ProgressDialog? = null
-    var data:String?=null;
+class MainActivity : BaseActivity<IView_Main, P_UpData>(), IView_Main {
+    var handle: Handler = object : Handler() {};
+    val array = ArrayList<VideoBean.Video>()
+    var videoAdapter: VideoAdapter? = null
+    var dialog: ProgressDialog? = null
+    var data: String? = null;
 
 
     companion object {
@@ -63,12 +63,12 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
             presenter?.getUpData(applicationContext)
         }
         EventBus.getDefault().register(this)
-        recycler.layoutManager= LinearLayoutManager(this )
+        recycler.layoutManager = LinearLayoutManager(this)
         presenter?.getUpData(applicationContext)
-       // presenter?.getloadVideo(applicationContext)
+        // presenter?.getloadVideo(applicationContext)
         context = this
-        vide_show.setOnClickListener{
-        //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
+        vide_show.setOnClickListener {
+            //    startActivity(Intent(this@MainActivity,CacheActivity::class.java))
         }
         swipy.direction = SwipyRefreshLayoutDirection.BOTH
         recycler.layoutManager = LinearLayoutManager(this)
@@ -116,77 +116,56 @@ class MainActivity : BaseActivity<IView_Main, P_UpData>(),IView_Main {
         }
     }
 
-<<<<<<< HEAD
     override fun setVideo(videoBean: VideoBean.Video) {
         array.add(videoBean)
         videoAdapter = VideoAdapter(this, videoBean)
         recycler.adapter = videoAdapter
-        Log.i("xxx", videoBean.toString())
-        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
-
-            override fun downloadLisener(pos: Int) {
-                val preferences = SpUtils(this@MainActivity).prefs
-                val islogin = preferences.getBoolean("islogin", false)
-                if (islogin) {
-                    var intent_cache=Intent(this@MainActivity,CacheActivity::class.java);
-                    startActivity(intent_cache)
-                } else {
-				    //登录
-                    var intent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-        })
-=======
->>>>>>> d39631c77dead464a96f47235b48b73a324ce8df
-
-    override fun setVideo( videoBean: VideoBean.Video) {
-       array.add(videoBean)
-        videoAdapter= VideoAdapter(this,videoBean)
-        recycler.adapter=videoAdapter
 
         val regEx = "[^0-9]"
         val p = Pattern.compile(regEx)
         val m = p.matcher(videoBean?.nextPageUrl)
         data = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
-                videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
-                    override fun downloadLisener(pos: Int) {
-                        val preferences = SpUtils(this@MainActivity).prefs
-                        val islogin = preferences.getBoolean("islogin", false)
-                        if (islogin) {
-                            Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
-                        } else {
-                            //登录
-                            var intent = Intent(this@MainActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                })
-                swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
-                    override fun onRefresh(index: Int) {}
-                    override fun onLoad(index: Int) {
-                        handle.postAtTime(Runnable {
-                            for (i in videoBean.issueList) {
-                                presenter?.getloadVideoEnd(this@MainActivity, data!!)
-                                swipy.isRefreshing = false
-                            }
-                        }, 5000)
-                    }
-
-                })
-            }
-
-            override fun onDestroy() {
-                super.onDestroy()
-                EventBus.getDefault().unregister(this)
-            }
-
-            @Subscribe(threadMode = ThreadMode.MAIN)
-            fun event(fileInfo: FileInfo) {
-                dialog!!.progress = fileInfo.length!!
-                Log.i("xxx", fileInfo.length!!.toString())
-                if (fileInfo.length == 100) {
-                    dialog!!.dismiss()
+        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
+            override fun downloadLisener(pos: Int) {
+                val preferences = SpUtils(this@MainActivity).prefs
+                val islogin = preferences.getBoolean("islogin", false)
+                if (islogin) {
+                    Toast.makeText(this@MainActivity, "跳转 ,第" + (pos) + "条", Toast.LENGTH_SHORT).show()
+                } else {
+                    //登录
+                    var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 }
+
+
+
             }
-         }
+        })
+        swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
+            override fun onRefresh(index: Int) {}
+            override fun onLoad(index: Int) {
+                handle.postAtTime(Runnable {
+                    for (i in videoBean.issueList) {
+                        presenter?.getloadVideoEnd(this@MainActivity, data!!)
+                        swipy.isRefreshing = false
+                    }
+                }, 5000)
+            }
+
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun event(fileInfo: FileInfo) {
+        dialog!!.progress = fileInfo.length!!
+        Log.i("xxx", fileInfo.length!!.toString())
+        if (fileInfo.length == 100) {
+            dialog!!.dismiss()
+        }
+    }
+}

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-<<<<<<< HEAD
 import android.widget.ListView
 import com.bwie.sss.R
 import com.bwie.sss.adapter.FileAdapter
@@ -14,15 +13,13 @@ import com.bwie.sss.bean.FileIn
 import com.bwie.sss.service.DownloadService
 import com.bwie.sss.util.NotificationUtil
 import java.util.ArrayList
-=======
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.bwie.sss.R
+
 
 import com.bwie.sss.bean.VideoBean
 import kotlinx.android.synthetic.main.activity_cache.*
 import zlc.season.rxdownload2.RxDownload
->>>>>>> d39631c77dead464a96f47235b48b73a324ce8df
 
 
 class CacheActivity : AppCompatActivity() {
