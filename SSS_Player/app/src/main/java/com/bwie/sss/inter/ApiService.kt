@@ -1,9 +1,6 @@
 package com.bwie.sss.inter
 
-import com.bwie.sss.bean.LoginBean
-import com.bwie.sss.bean.RegisterBean
-import com.bwie.sss.bean.UpDataBean
-import com.bwie.sss.bean.VideoBean
+import com.bwie.sss.bean.*
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,13 +20,13 @@ interface ApiService {
     /*
      *获取Video页数据
      */
-    @GET("v2/feed?num=2&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
-    fun getVideo():Flowable<VideoBean.Video>
+    @GET("v2/feed?udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
+    fun getVideo():Flowable<HomeBean>
     /*
         最后一条//date=1499043600000&num=2
      */
     @GET("v2/feed")
-    fun getVideoEnd(@Query("date")date:String,@Query("num")num:String):Flowable<VideoBean.Video>
+    fun getVideoMore(@Query("date") date :String,@Query("num") num :String):Flowable<HomeBean>
 
     @GET("reg")
     fun getRegister(@Query("mobile")moblie:String, @Query("password")password:String):Flowable<RegisterBean.RegisterBean>

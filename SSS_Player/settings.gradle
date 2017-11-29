@@ -1,1 +1,1 @@
-include ':app', ':swiperefreshlayoutlibrary'
+include ':app'

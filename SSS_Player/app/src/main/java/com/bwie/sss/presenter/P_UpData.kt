@@ -2,11 +2,12 @@ package com.bwie.sss.presenter
 
 import android.content.Context
 import android.util.Log
+import com.bwie.sss.bean.HomeBean
 import com.bwie.sss.bean.UpDataBean
-import com.bwie.sss.bean.VideoBean
 import com.bwie.sss.model.IModel_UpData
 import com.bwie.sss.model.Model_UpData
 import com.bwie.sss.view.IView_Main
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -18,12 +19,10 @@ import io.reactivex.schedulers.Schedulers
 class P_UpData<T> : BasePresenter<IView_Main>() {
     var model: IModel_UpData = Model_UpData()
 
-
     fun getUpData(context: Context) {
-        Log.i("xx", "VideoPresenterlmp")
         val flowable = model.getUpData(context)
         flowable?.subscribeOn(Schedulers.io())
-                ?.observeOn(Schedulers.newThread())
+                ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { upData: UpDataBean.UpData ->
                     if (view == null) {
                         Log.i("xxx", upData.apkUrl)
@@ -31,19 +30,18 @@ class P_UpData<T> : BasePresenter<IView_Main>() {
                     view?.setUpdata(upData)
                 }
     }
+    fun getFirstVideo(context: Context){
+        var flowable_first=model.getVideo(context,true,"0")
+        flowable_first?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe{ bean:HomeBean ->
+                    view?.setVideo(bean)
+                }
 
-    fun getloadVideo(context: Context){
-        var v=model?.getloadVideo(context,true,"0")
-        v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video ->
-            Log.e("bean", bean.toString())
-            view?.setVideo(bean)
-        }
     }
-    fun getloadVideoEnd(context: Context,date: String){
-        Log.i("xx","VideoPresenterlmp")
-        var v=model?.getloadVideo(context,false,date)
-        v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: VideoBean.Video ->
-            Log.e("bean", bean.toString())
+    fun getMoreVideo(context: Context,data:String?){
+        var v=model?.getVideo(context,false,data)
+        v?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.subscribe { bean: HomeBean ->
             view?.setVideo(bean)
         }
     }

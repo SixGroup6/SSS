@@ -1,6 +1,8 @@
 package com.bwie.sss.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,87 +10,74 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import cn.jzvd.JZVideoPlayerStandard
 import com.bwie.sss.R
+import com.bwie.sss.activity.DetailActivity
+import com.bwie.sss.bean.HomeBean
 import com.bwie.sss.bean.VideoBean
+import com.bwie.sss.util.ObjectSaveUtils
+import com.bwie.sss.util.SUtils
 import com.squareup.picasso.Picasso
 
 
 /**
  * Created by 燕子 on 2017/11/23.
  */
-class VideoAdapter(var context:Context,var video:VideoBean.Video): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class VideoAdapter(var context:Context,var list:MutableList<HomeBean.IssueListBean.ItemListBean>?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
-    val TYPE_A:Int=0
-    val TYPE_B:Int=1
 
     override fun getItemCount(): Int {
         Log.i("x","getItemCount")
-      return video.issueList[0].itemList.size
+      return list?.size ?:0
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val title = video.issueList[0].itemList[position].data.title
-        if (title!=null&&!"".equals(title)){
-            return TYPE_B
-        }else{
-            return TYPE_A
-        }
-    }
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType==TYPE_A) {
-            val v2=LayoutInflater.from(context).inflate(R.layout.recycler_item,parent,false);
-            var  myViewHolder2=ViewHolder2(v2)
-            return myViewHolder2
-        }else{
+
             val v=LayoutInflater.from(context).inflate(R.layout.recycler_video,parent,false);
             var myViewHoler=ViewHoler(v)
-            v.setOnClickListener {
-                lisener?.downloadLisener(myViewHoler.position)
-            }
             return myViewHoler
-        }
-
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val type = getItemViewType(position)
-        if(type==0){
-            holder as ViewHolder2
-            //图片加载框架
-            //Picasso.with(context).load(video.issueList[0].itemList[position].data.image).into(holder.Img)
-        }else{
             holder as ViewHoler
-            holder.title.text=video.issueList[0].itemList[position].data.title
+            var bean = list?.get(position)
+            holder.title.text=bean?.data?.title
             holder.iv_video.scaleType=ImageView.ScaleType.FIT_XY
-            Picasso.with(context).load(video.issueList[0].itemList[position].data.cover.feed).into(holder.iv_video)
-        }
+            Picasso.with(context).load(bean?.data?.cover?.feed).into(holder.iv_video)
+            holder.iv_video.setOnClickListener(View.OnClickListener {
+                //跳转详情页
+                var intent : Intent = Intent(context,DetailActivity::class.java)
+                var desc = bean?.data?.description
+                var duration = bean?.data?.duration
+                var playUrl = bean?.data?.playUrl
+                var blurred = bean?.data?.cover?.blurred
+                var collect = bean?.data?.consumption?.collectionCount
+                var share = bean?.data?.consumption?.shareCount
+                var reply = bean?.data?.consumption?.replyCount
+                var time = System.currentTimeMillis()
+                var videoBean  = VideoBean(bean?.data?.cover?.feed,bean?.data?.title,desc,duration,playUrl,bean?.data?.category,blurred,collect ,share ,reply,time)
+                var url = SUtils.getInstance(context!!,"beans").getString(playUrl!!)
+                if(url.equals("")){
+                    var count = SUtils.getInstance(context!!,"beans").getInt("count")
+                    if(count!=-1){
+                        count = count.inc()
+                    }else{
+                        count = 1
+                    }
+                    SUtils.getInstance(context!!,"beans").put("count",count)
+                    SUtils.getInstance(context!!,"beans").put(playUrl!!,playUrl)
+                    ObjectSaveUtils.saveObject(context!!,"bean$count",videoBean)
+                }
+                intent.putExtra("data",videoBean as Parcelable)
+                context?.let { context -> context.startActivity(intent) }
+            })
 
 
-        }
+    }
 
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
             var iv_video:ImageView=itemView!!.findViewById(R.id.iv_video) as ImageView
 
-    }
-    class ViewHolder2 (itemView: View?):RecyclerView.ViewHolder(itemView){
-        var Img:ImageView= itemView!!.findViewById(R.id.vide_im) as ImageView
-    }
-
-/**
- * 自定义接口处理点击事件
- * 跟java的写法基本一致
- * */
-    var lisener:OnItemClickLitener?=null
-    interface OnItemClickLitener {
-        fun downloadLisener(pos:Int)
-    }
-
-    fun setOniteClickListener(lisener:OnItemClickLitener){
-        this.lisener=lisener;
     }
 
 }

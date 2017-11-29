@@ -25,7 +25,7 @@ class MainActivity : BaseActivity<IView_Main, P_UpData<Any?>>() {
         handle.postDelayed(Runnable {
             startActivity(Intent(this@MainActivity,HomeActivity::class.java))
             finish()
-        },3000)
+        },1500)
     }
 
 }

@@ -1,7 +1,7 @@
 package com.bwie.sss.view
 
+import com.bwie.sss.bean.HomeBean
 import com.bwie.sss.bean.UpDataBean
-import com.bwie.sss.bean.VideoBean
 
 
 /**
@@ -12,7 +12,7 @@ import com.bwie.sss.bean.VideoBean
 interface IView_Main {
     fun setUpdata(upData: UpDataBean.UpData)
 
-    fun setVideo(videoBean: VideoBean.Video)
+    fun setVideo(videoBean: HomeBean)
 
 
 

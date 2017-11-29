@@ -6,19 +6,17 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.Toast
-import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout
-import com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayoutDirection
 import com.bwie.sss.R
 import com.bwie.sss.activity.CacheActivity
+import com.bwie.sss.activity.DetailActivity
 import com.bwie.sss.activity.LoginActivity
 import com.bwie.sss.adapter.VideoAdapter
-import com.bwie.sss.bean.FileInfo
-import com.bwie.sss.bean.FileInfoBean
-import com.bwie.sss.bean.UpDataBean
-import com.bwie.sss.bean.VideoBean
+import com.bwie.sss.bean.*
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
 import com.bwie.sss.util.DownLoadUtils
@@ -36,37 +34,40 @@ import java.util.regex.Pattern
  * 2：@author Dell
  * 3：@date 2017/11/27
  */
-class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
-    override fun getPresenter(): P_UpData<IView_Main> {
-        return P_UpData()
-    }
+class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main, SwipeRefreshLayout.OnRefreshListener {
+
 
     var handle: Handler = object : Handler() {}
-    var array = ArrayList<VideoBean.Video>()
     var videoAdapter: VideoAdapter? = null
     var dialog: ProgressDialog? = null
     var data: String? = null
+    var mIsRefresh: Boolean = false
+    var mList = ArrayList<HomeBean.IssueListBean.ItemListBean>()
+    var mAdapter: VideoAdapter? = null
 
     companion object {
         lateinit var alert: AlertDialog
     }
-
+    override fun getPresenter(): P_UpData<IView_Main> {
+        return P_UpData()
+    }
     override fun getLayout(): Int {
         return R.layout.fragment_sy
     }
 
     override fun initData() {
         EventBus.getDefault().register(this)
-        recycler.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
-        presenter?.getloadVideo(activity.applicationContext)
         var intent = activity.intent
         var extra = intent.getBooleanExtra("login", false)
         //版本更新
         /*if (!extra) {
             presenter?.getUpData(activity.applicationContext)
         }*/
-        swipy.direction = SwipyRefreshLayoutDirection.BOTH
-        recycler.layoutManager = LinearLayoutManager(activity)
+        //第一次请求
+        presenter?.getFirstVideo(activity)
+        recycler.layoutManager = LinearLayoutManager(context)
+        mAdapter = VideoAdapter(context, mList)
+        recycler.adapter = mAdapter
         vide_show.setOnClickListener {
             //跳转到搜索界面
             //startActivity(Intent(activity, CacheActivity::class.java))
@@ -74,39 +75,40 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
 
     }
 
-    override fun setVideo(videoBean: VideoBean.Video) {
-        array.add(videoBean)
-        videoAdapter = VideoAdapter(activity, videoBean)
-        recycler.adapter = videoAdapter
+    override fun setVideo(videoBean: HomeBean) {
 
         val regEx = "[^0-9]"
         val p = Pattern.compile(regEx)
         val m = p.matcher(videoBean?.nextPageUrl)
         data = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
-        videoAdapter!!.setOniteClickListener(object : VideoAdapter.OnItemClickLitener {
-            override fun downloadLisener(pos: Int) {
-                var preferences = SpUtils(activity).prefs
-                var islogin = preferences.getBoolean("islogin", false)
-                if (islogin) {
-                    //下载视频
-                } else {
-                    //登录
-                    var intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
+        if (mIsRefresh) {
+            mIsRefresh = false
+            swip.isRefreshing = false
+            if (mList.size > 0) {
+                mList.clear()
+            }
+        }
+        videoBean.issueList!!
+                .flatMap { it.itemList!! }
+                .filter { it.type.equals("video") }
+                .forEach { mList.add(it) }
+        mAdapter?.notifyDataSetChanged()
+
+        swip.setOnRefreshListener(this)
+        //加载更多
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                var layoutManager: LinearLayoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                var lastPositon = layoutManager.findLastVisibleItemPosition()
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPositon == mList.size-1) {
+                    if (data != null) {
+                        presenter?.getMoreVideo(activity,data)
+                    }
                 }
             }
         })
-        swipy.setOnRefreshListener(object : SwipyRefreshLayout.OnRefreshListener {
-            override fun onRefresh(index: Int) {}
-            override fun onLoad(index: Int) {
-                handle.postAtTime(Runnable {
-                    for (i in videoBean.issueList) {
-                        presenter?.getloadVideoEnd(activity, data!!)
-                        swipy.isRefreshing = false
-                    }
-                }, 5000)
-            }
-        })
+
     }
 
     override fun setUpdata(upData: UpDataBean.UpData) {
@@ -156,6 +158,12 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main{
         Log.i("xxx", fileInfo.length!!.toString())
         if (fileInfo.length == 100) {
             dialog!!.dismiss()
+        }
+    }
+    override fun onRefresh() {
+        if (!mIsRefresh) {
+            mIsRefresh = true
+            presenter?.getFirstVideo(activity)
         }
     }
 }

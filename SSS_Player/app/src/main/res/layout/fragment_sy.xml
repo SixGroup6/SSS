@@ -24,14 +24,14 @@
             android:layout_centerVertical="true"
             />
     </RelativeLayout>
-    <com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/swipy">
+        android:id="@+id/swip">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </com.bawei.swiperefreshlayoutlibrary.SwipyRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -1,54 +1,49 @@
 package com.bwie.sss.bean
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.io.Serializable
 
 /**
- * Created by 燕子 on 2017/11/22.
+ * Created by lvruheng on 2017/7/7.
  */
+data class VideoBean(var feed:String?,var title:String?,var description:String?,
+                     var duration: Long?,var playUrl: String?,var category: String?,
+                     var blurred : String?,var collect:Int?,var share:Int?,var reply:Int?,var time:Long) : Parcelable,Serializable {
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<VideoBean> = object : Parcelable.Creator<VideoBean> {
+            override fun createFromParcel(source: Parcel): VideoBean = VideoBean(source)
+            override fun newArray(size: Int): Array<VideoBean?> = arrayOfNulls(size)
+        }
+    }
 
-class VideoBean : Serializable{
+    constructor(source: Parcel) : this(
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readValue(Long::class.java.classLoader) as Long?,
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readValue(Int::class.java.classLoader) as Int?,
+    source.readValue(Int::class.java.classLoader) as Int?,
+    source.readValue(Int::class.java.classLoader) as Int?,
+    source.readLong()
+    )
 
-data class Video(
-		val issueList: List<Issue>,
-		val nextPageUrl: String, //http://baobab.kaiyanapp.com/api/v2/feed?date=1511226000000&num=2
-		val nextPublishTime: Long, //1511485200000
-		val newestIssueType: String, //morning
-		val dialog: Any //null
-)
+    override fun describeContents() = 0
 
-data class Issue(
-		val releaseTime: Long, //1511398800000
-		val type: String, //morning
-		val date: Long, //1511398800000
-		val publishTime: Long, //1511398800000
-		val itemList: List<Item>,
-		val count: Int //7
-)
-
-data class Item(
-		val type: String, //banner2
-		val data: Data,
-		val tag: Any, //null
-		val id: Int //0
-)
-
-data class Data(
-		val dataType: String, //Banner
-		val id: Int, //0
-		val title: String,
-		val description: String,
-		val image: String, //http://img.kaiyanapp.com/eef24aa10ab6cf17b5a512943ec22053.jpeg?imageMogr2/quality/60/format/jpg
-		val actionUrl: String,
-		val adTrack: Any, //null
-		val shade: Boolean, //false
-		val label: Any, //null
-		val labelList: Any, //null
-		val header: Any ,//null
-		val playUrl:String,
-		val cover: Cover
-)
-	data class Cover(
-			val feed:String
-	)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(feed)
+        dest.writeString(title)
+        dest.writeString(description)
+        dest.writeValue(duration)
+        dest.writeString(playUrl)
+        dest.writeString(category)
+        dest.writeString(blurred)
+        dest.writeValue(collect)
+        dest.writeValue(share)
+        dest.writeValue(reply)
+        dest.writeLong(time)
+    }
 }
-
