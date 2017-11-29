@@ -10,12 +10,13 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import com.bwie.sss.adapter.VideoAdapter
+import com.bwie.sss.bean.FileInfo
+import com.bwie.sss.bean.FileInfoBean
+import com.bwie.sss.bean.UpDataBean
+
 import android.widget.Toast
 import com.bwie.sss.R
-import com.bwie.sss.activity.CacheActivity
-import com.bwie.sss.activity.DetailActivity
-import com.bwie.sss.activity.LoginActivity
-import com.bwie.sss.adapter.VideoAdapter
 import com.bwie.sss.bean.*
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
