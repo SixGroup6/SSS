@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.Handler
 import android.os.Looper
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -15,13 +14,11 @@ import com.bwie.sss.bean.FileInfo
 import com.bwie.sss.bean.FileInfoBean
 import com.bwie.sss.bean.UpDataBean
 
-import android.widget.Toast
 import com.bwie.sss.R
 import com.bwie.sss.bean.*
 import com.bwie.sss.presenter.P_UpData
 import com.bwie.sss.service.PlayService
 import com.bwie.sss.util.DownLoadUtils
-import com.bwie.sss.util.SpUtils
 import com.bwie.sss.view.IView_Main
 import kotlinx.android.synthetic.main.fragment_sy.*
 import org.greenrobot.eventbus.EventBus
@@ -37,9 +34,6 @@ import java.util.regex.Pattern
  */
 class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main, SwipeRefreshLayout.OnRefreshListener {
 
-
-    var handle: Handler = object : Handler() {}
-    var videoAdapter: VideoAdapter? = null
     var dialog: ProgressDialog? = null
     var data: String? = null
     var mIsRefresh: Boolean = false
