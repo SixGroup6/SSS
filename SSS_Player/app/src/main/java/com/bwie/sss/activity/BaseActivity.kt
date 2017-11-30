@@ -2,6 +2,7 @@ package com.bwie.sss.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.bwie.sss.R
 import com.bwie.sss.presenter.BasePresenter
 import com.jaeger.library.StatusBarUtil
 
@@ -17,6 +18,7 @@ abstract class BaseActivity<V, T : BasePresenter<V>> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(getLayout())
         StatusBarUtil.setTranslucent(this,0)
         presenter = getPresenter()

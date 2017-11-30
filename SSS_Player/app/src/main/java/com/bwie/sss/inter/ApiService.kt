@@ -33,4 +33,17 @@ interface ApiService {
 
     @GET("login")
     fun getLogin(@Query("mobile")moblie:String,@Query("password")password: String):Flowable<LoginBean.LoginBean>
+
+    /**
+     * 获取更多数据
+     * http://baobab.wandoujia.com/api/v2/categories?udid=26868b32e808498db32fd51fb422d00175e179df&vc=83
+     */
+    @GET("v2/categories?udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
+    fun getFindMoreData():Flowable<List<FindBean.Find>>
+
+    /**
+     * http://baobab.wandoujia.com/api/v3/videos?categoryName=%s&strategy=%s&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83
+     */
+    @GET("v3/videos")
+    fun getFindDetails(@Query("categoryName") categoryName : String ,@Query("strategy") strategy : String):Flowable<FindDetail.Detail>
 }

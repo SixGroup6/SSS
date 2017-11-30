@@ -77,7 +77,6 @@ class VideoAdapter(var context:Context,var list:MutableList<HomeBean.IssueListBe
     class ViewHoler (itemView: View?): RecyclerView.ViewHolder(itemView) {
             var title:TextView= itemView!!.findViewById(R.id.vide_title) as TextView
             var iv_video:ImageView=itemView!!.findViewById(R.id.iv_video) as ImageView
-
     }
 
 }
