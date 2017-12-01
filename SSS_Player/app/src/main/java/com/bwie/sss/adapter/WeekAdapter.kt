@@ -31,6 +31,7 @@ class WeekAdapter(context:Context ,list:ArrayList<HotBean.ItemListBean.DataBean>
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         //加载图片的
         var photoURl = list?.get(position)?.cover?.feed
+        holder?.iv_photo?.scaleType = ImageView.ScaleType.FIT_XY
         Picasso.with(context).load(photoURl).into(holder?.iv_photo)
         //标题
         var title = list?.get(position)?.title
