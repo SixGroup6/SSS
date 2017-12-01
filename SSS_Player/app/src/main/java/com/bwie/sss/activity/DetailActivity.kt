@@ -25,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        StatusBarUtil.setTranslucent(this,0)
+        StatusBarUtil.setTranslucent(this)
         initData()
         setListener()
 

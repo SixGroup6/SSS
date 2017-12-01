@@ -10,15 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:id="@+id/iv_return"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:layout_gravity="center"
+            android:src="@mipmap/left"
+            android:layout_marginLeft="20px"
+            />
         <TextView
             android:id="@+id/detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
+            android:textSize="30px"
             />
     </LinearLayout>
     <android.support.v4.widget.SwipeRefreshLayout

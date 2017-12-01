@@ -84,6 +84,9 @@ class FindDetailActivity : BaseActivity<IView_FindDetail, FindDetialPresenter<IV
                 }
             }
         })
+        iv_return.setOnClickListener{
+            finish()
+        }
     }
 
     override fun onRefresh() {

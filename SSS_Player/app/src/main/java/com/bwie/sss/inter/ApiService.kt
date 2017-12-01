@@ -54,6 +54,11 @@ interface ApiService {
     @GET("v3/ranklist")
     fun getHotData(@Query("num") num :Int,@Query("strategy") strategy :String,
                    @Query("udid") udid :String,@Query("vc") vc :Int) : Observable<HotBean>
+    /**
+     * start=20&num=10&categoryName=%E8%BF%90%E5%8A%A8&strategy=date
+     */
+    @GET("v3/videos")
+    fun getFindMoreData2(@Query("start") start : Int,@Query("num") num : Int,@Query("categoryName") categoryName : String ,@Query("strategy") strategy : String):Flowable<FindDetail.Detail>
 
 
 }
