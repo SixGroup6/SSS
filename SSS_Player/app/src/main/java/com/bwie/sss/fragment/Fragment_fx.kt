@@ -3,6 +3,7 @@ package com.bwie.sss.fragment
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.bwie.sss.R
 import com.bwie.sss.activity.FindDetailActivity
 import com.bwie.sss.adapter.FindMoreAdapter
@@ -26,7 +27,7 @@ class Fragment_fx : BaseFragment<IView_Find,FindPresenter>(),IView_Find {
         fx_rv.layoutManager = GridLayoutManager(context,2) as RecyclerView.LayoutManager?
         //调p层方法请求网络 获取数据
         presenter!!.getFindData(context)
-    }
+     }
 
     override fun getPresenter(): FindPresenter? {
         return FindPresenter()
@@ -42,6 +43,7 @@ class Fragment_fx : BaseFragment<IView_Find,FindPresenter>(),IView_Find {
         adapter.setClicks(object : FindMoreAdapter.RecycleViewItemClick{
             override fun itemClick(position: Int) {
                 val intent = Intent(context, FindDetailActivity::class.java)
+                Log.e("123",position.toString())
                 intent.putExtra("name",finds.get(position).name)
                 context.startActivity(intent)
             }

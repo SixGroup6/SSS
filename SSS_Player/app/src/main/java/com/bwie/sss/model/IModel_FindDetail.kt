@@ -11,4 +11,5 @@ import io.reactivex.Flowable
  */
 interface IModel_FindDetail {
     fun getDetailData(context: Context, categoryName : String, strategy : String) : Flowable<FindDetail.Detail>
+    fun getMoreData(context: Context, start : Int, num : Int,categoryName: String, data: String): Flowable<FindDetail.Detail>
 }

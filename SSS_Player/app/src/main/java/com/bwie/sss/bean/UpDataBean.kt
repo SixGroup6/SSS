@@ -9,5 +9,6 @@ class UpDataBean {
      class UpData(
             val apkUrl: String, //http://count.liqucn.com/d.php?id=339975&urlos=android&from_type=web
             val versionName: String //1.0.1
+
     )
 }

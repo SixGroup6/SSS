@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : BaseActivity<IView_Main,P_UpData<Any?>>() {
+
     var fragments = arrayOf<Class<*>>(Fragment_sy::class.java,Fragment_fx::class.java,Fragment_rm::class.java,Fragment_wd::class.java)
     var mImageViewArray = intArrayOf(R.drawable.but_sy,R.drawable.but_fx,R.drawable.but_rm,R.drawable.but_wd)
     var mTextviewArray = arrayOf("首页","发现","热门","我的")

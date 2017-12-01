@@ -10,5 +10,6 @@ class Api {
         val REGISTER_URL:String="https://www.zhaoapi.cn/user/"
         var UP_DATA : String = "http://169.254.26.25:8080/"
         var VIDEO :String="http://baobab.kaiyanapp.com/api/"
+        var HOTDATE:String = "http://baobab.wandoujia.com/api/"
     }
 }

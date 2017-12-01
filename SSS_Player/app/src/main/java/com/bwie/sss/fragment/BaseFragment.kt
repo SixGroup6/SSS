@@ -20,7 +20,7 @@ abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment() {
         StatusBarUtil.setTranslucent(activity,0)
         presenter = getPresenter()
         if (presenter != null) {
-            presenter!!.attachView(this as V)
+            presenter!!.attachView(this as V )
         }
         return view
     }

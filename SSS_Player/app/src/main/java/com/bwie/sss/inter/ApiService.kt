@@ -42,6 +42,11 @@ interface ApiService {
     fun getFindMoreData():Flowable<List<FindBean.Find>>
 
     /**
+     * start=20&num=10&categoryName=%E8%BF%90%E5%8A%A8&strategy=date
+     */
+    @GET("v3/videos")
+    fun getFindMoreData2(@Query("start") start : Int,@Query("num") num : Int,@Query("categoryName") categoryName : String ,@Query("strategy") strategy : String):Flowable<FindDetail.Detail>
+    /**
      * http://baobab.wandoujia.com/api/v3/videos?categoryName=%s&strategy=%s&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83
      */
     @GET("v3/videos")
