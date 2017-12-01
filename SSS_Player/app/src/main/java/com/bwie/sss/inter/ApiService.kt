@@ -1,10 +1,8 @@
 package com.bwie.sss.inter
 
-import com.bwie.sss.bean.LoginBean
-import com.bwie.sss.bean.RegisterBean
-import com.bwie.sss.bean.UpDataBean
-import com.bwie.sss.bean.VideoBean
+import com.bwie.sss.bean.*
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -36,4 +34,13 @@ interface ApiService {
 
     @GET("login")
     fun getLogin(@Query("mobile")moblie:String,@Query("password")password: String):Flowable<LoginBean.LoginBean>
+
+    /**
+     * 热门的排行
+     * v3/ranklist?num=10&strategy=%s&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83
+     */
+    @GET("v3/ranklist")
+    fun getHotData(@Query("num") num :Int,@Query("strategy") strategy :String,
+                   @Query("udid") udid :String,@Query("vc") vc :Int) : Observable<HotBean>
+
 }

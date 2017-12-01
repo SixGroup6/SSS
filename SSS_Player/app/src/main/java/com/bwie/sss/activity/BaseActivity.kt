@@ -11,7 +11,7 @@ import com.jaeger.library.StatusBarUtil
  * 3：@date 2017/11/22
  */
 
-abstract class BaseActivity<V, T : BasePresenter<V>> : AppCompatActivity() {
+abstract class BaseActivity<V , T: BasePresenter<V>> : AppCompatActivity() {
 
     var presenter: T? = null
 

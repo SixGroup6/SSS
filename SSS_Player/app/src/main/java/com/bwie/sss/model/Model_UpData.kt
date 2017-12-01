@@ -17,9 +17,10 @@ import io.reactivex.Flowable
 class Model_UpData : IModel_UpData {
     override fun getUpData(context: Context): Flowable<UpDataBean.UpData>? {
 
-       val apiService = RetrofitClient.getInstance(context).create(ApiService::class.java,Api.UP_DATA)
+        val apiService = RetrofitClient.getInstance(context).create(ApiService::class.java,Api.UP_DATA)
         return apiService?.getUpDtad()
     }
+
     override fun getloadVideo(context: Context, isB: Boolean,date:String): Flowable<VideoBean.Video>? {
         Log.i("date",date.toString())
         Log.i("xx","VideoModel")

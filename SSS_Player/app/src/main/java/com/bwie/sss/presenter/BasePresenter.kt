@@ -12,7 +12,7 @@ abstract class BasePresenter<V> {
 
     var weakReference: WeakReference<V>? = null
     //得到View
-    val view: V?
+    val view: V ?
         get() = if (weakReference != null) weakReference!!.get() else null
 
     //关联的方法
