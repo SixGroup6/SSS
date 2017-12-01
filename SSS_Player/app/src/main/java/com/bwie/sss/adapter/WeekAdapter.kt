@@ -30,6 +30,7 @@ class WeekAdapter(context:Context ,list:ArrayList<HotBean.ItemListBean.DataBean>
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         //加载图片的
+        holder?.iv_photo?.scaleType=ImageView.ScaleType.FIT_XY
         var photoURl = list?.get(position)?.cover?.feed
         Picasso.with(context).load(photoURl).into(holder?.iv_photo)
         //标题
@@ -64,8 +65,9 @@ class WeekAdapter(context:Context ,list:ArrayList<HotBean.ItemListBean.DataBean>
             var time = System.currentTimeMillis()
             var  details= details(photoURl,title,desc,duration,playUrl,category,blurred,collect ,share ,reply,time)
 
-            intent.putExtra("URl",playUrl.toString())
+            intent.putExtra("UR1",playUrl.toString())
             intent.putExtra("data",details as Parcelable)
+
             context?.let { context -> context.startActivity(intent) }
         }
 

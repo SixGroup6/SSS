@@ -76,6 +76,7 @@ class Fragment_sy : BaseFragment<IView_Main,P_UpData<IView_Main>>(),IView_Main, 
         val p = Pattern.compile(regEx)
         val m = p.matcher(videoBean?.nextPageUrl)
         data = m.replaceAll("").subSequence(1, m.replaceAll("").length - 1).toString()
+
         if (mIsRefresh) {
             mIsRefresh = false
             swip.isRefreshing = false

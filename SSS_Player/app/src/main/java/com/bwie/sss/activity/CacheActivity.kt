@@ -6,6 +6,7 @@ import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.bwie.sss.R
 import com.bwie.sss.adapter.DownloadAdapter
@@ -26,6 +27,7 @@ class CacheActivity : AppCompatActivity() {
         override fun handleMessage(msg: Message?) {
             super.handleMessage(msg)
             var list = msg?.data?.getParcelableArrayList<VideoBean>("beans")
+            Log.i("list=-------------",list?.size.toString())
             if (list?.size?.compareTo(0) == 0) {
                 tv_hint.visibility = View.VISIBLE
             } else {

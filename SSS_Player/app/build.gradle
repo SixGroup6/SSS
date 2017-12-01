@@ -57,6 +57,8 @@ dependencies {
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.3.1'
+    compile 'com.shuyu:GSYVideoPlayer:1.6.8'
+
 }
 repositories {
     mavenCentral()
