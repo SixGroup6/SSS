@@ -26,7 +26,6 @@ class VideoAdapter(var context:Context,var list:MutableList<HomeBean.IssueListBe
 
 
     override fun getItemCount(): Int {
-        Log.i("x","getItemCount")
       return list?.size ?:0
     }
 

@@ -5,12 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <cn.jzvd.JZVideoPlayerStandard
-        android:id="@+id/jc_video"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        ></cn.jzvd.JZVideoPlayerStandard>
+        >
+        <cn.jzvd.JZVideoPlayerStandard
+            android:id="@+id/jc_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></cn.jzvd.JZVideoPlayerStandard>
+         <ImageView
+             android:id="@+id/iv_return"
+             android:layout_width="40px"
+             android:layout_height="40px"
+             android:src="@mipmap/left"
+             android:layout_marginLeft="40px"
+             android:layout_marginTop="30px"
+             />
+    </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,8 +39,8 @@
             android:layout_height="wrap_content"
             android:text="title"
             android:textColor="@color/white"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40px"
+            android:layout_marginLeft="40px"
             />
         <TextView
             android:id="@+id/tv_describe"
@@ -35,17 +48,31 @@
             android:layout_height="wrap_content"
             android:text="describe"
             android:textColor="@color/white"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100px"
+            android:layout_marginLeft="40px"
             />
-        <ImageView
-            android:id="@+id/iv_down"
+        <LinearLayout
+            android:id="@+id/ll_down"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/action_download_cut"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="40px"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp"
+            >
+        <ImageView
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/action_download_cut"
             />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="缓存"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15px"
+
+                />
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>
