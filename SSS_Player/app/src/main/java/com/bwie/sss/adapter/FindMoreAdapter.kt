@@ -23,18 +23,14 @@ class FindMoreAdapter(var context : Context,var flist : List<FindBean.Find>) :Re
         holder as MyViewHolder
         Picasso.with(context).load(flist.get(position).bgPicture).into(holder.pic)
         holder.titles.setText(flist.get(position).name)
-        holder.pic.setOnClickListener(View.OnClickListener {
-
-        })
-        Log.e("xxx",flist.get(position).bgColor)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.findmore_item, parent, false)
         val myViewHolder = MyViewHolder(view)
-        myViewHolder.pic.setOnClickListener(View.OnClickListener {
+        view.setOnClickListener {
             click!!.itemClick(myViewHolder.position)
-        })
+        }
         return myViewHolder
     }
 

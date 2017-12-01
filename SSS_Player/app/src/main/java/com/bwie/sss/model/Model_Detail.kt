@@ -13,6 +13,11 @@ import io.reactivex.Flowable
  * 3：@date 2017/11/30
  */
 class Model_Detail : IModel_FindDetail {
+    override fun getMoreData(context: Context, start : Int, num : Int,categoryName: String, data: String): Flowable<FindDetail.Detail> {
+        val apiService = RetrofitClient.getInstance(context).create(ApiService::class.java, Api.VIDEO)
+        return apiService!!.getFindMoreData2(start,num,categoryName,data)
+    }
+
     override fun getDetailData(context: Context,categoryName: String, strategy: String): Flowable<FindDetail.Detail> {
         val apiService = RetrofitClient.getInstance(context).create(ApiService::class.java, Api.VIDEO)
         return apiService!!.getFindDetails(categoryName,strategy)
